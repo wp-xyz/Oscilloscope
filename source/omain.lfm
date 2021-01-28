@@ -435,13 +435,14 @@ object MainForm: TMainForm
     end
   end
   object WaveGeneratorPanel: TPanel
+    AnchorSideTop.Side = asrBottom
     Left = 464
-    Height = 384
+    Height = 440
     Top = 72
     Width = 210
     BorderSpacing.Around = 8
     BevelOuter = bvNone
-    ClientHeight = 384
+    ClientHeight = 440
     ClientWidth = 210
     TabOrder = 1
     object LblGeneratorSampleRate: TLabel
