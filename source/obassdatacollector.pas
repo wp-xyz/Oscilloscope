@@ -251,7 +251,7 @@ begin
 
   flags := 0;
   if (not BASS_RecordInit(FDevice)) or
-     (not BASS_Init(FDevice, ASampleRate, flags, Handle, nil)) then
+     (not BASS_Init(FDevice, ASampleRate, flags, {$IFNDEF MSWINDOWS}@{$ENDIF}Handle, nil)) then
   begin
     err := GetErrorMsg; //BASS_ErrorGetCode;
     BASS_RecordFree;
