@@ -785,11 +785,14 @@ function BASS_GetConfigPtr(option: DWORD): Pointer; {$IFDEF MSWINDOWS}stdcall{$E
 function BASS_GetVersion: DWORD; {$IFDEF MSWINDOWS}stdcall{$ELSE}cdecl{$ENDIF}; external bassdll;
 function BASS_ErrorGetCode: LongInt; {$IFDEF MSWINDOWS}stdcall{$ELSE}cdecl{$ENDIF}; external bassdll;
 function BASS_GetDeviceInfo(device: DWORD; var info: BASS_DEVICEINFO): BOOL; {$IFDEF MSWINDOWS}stdcall{$ELSE}cdecl{$ENDIF}; external bassdll;
+function BASS_Init(device: LongInt; freq, flags: DWORD; win: HWND; clsid: PGUID): BOOL; stdcall; external bassdll;
+(*
 {$IFDEF MSWINDOWS}
 function BASS_Init(device: LongInt; freq, flags: DWORD; win: HWND; clsid: PGUID): BOOL; stdcall; external bassdll;
-{$ELSE}
+{$ELSE}   // <--- wp: Linux/gtk2 requires HWND as well.
 function BASS_Init(device: LongInt; freq, flags: DWORD; win: Pointer; clsid: Pointer): BOOL; cdecl; external bassdll;
 {$ENDIF}
+*)
 function BASS_SetDevice(device: DWORD): BOOL; {$IFDEF MSWINDOWS}stdcall{$ELSE}cdecl{$ENDIF}; external bassdll;
 function BASS_GetDevice: DWORD; {$IFDEF MSWINDOWS}stdcall{$ELSE}cdecl{$ENDIF}; external bassdll;
 function BASS_Free: BOOL; {$IFDEF MSWINDOWS}stdcall{$ELSE}cdecl{$ENDIF}; external bassdll;
