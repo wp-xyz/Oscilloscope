@@ -33,6 +33,8 @@ type
     LeftChannelSeries: TLineSeries;
     PanDragTool: TPanDragTool;
     Panel1: TPanel;
+    LeftSensitityPanel: TPanel;
+    RightSensitivityPanel: TPanel;
     RightAxisTransformations: TChartAxisTransformations;
     RightAxisTransformationsAutoScaleAxisTransform1: TAutoScaleAxisTransform;
     RightChannelChartSource: TUserDefinedChartSource;

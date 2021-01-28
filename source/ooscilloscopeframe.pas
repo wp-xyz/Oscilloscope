@@ -26,6 +26,8 @@ type
     GbInfo: TGroupBox;
     GbTimeBase: TGroupBox;
     GbTrigger: TGroupBox;
+    TriggerPanel: TPanel;
+    TimeBasePanel: TPanel;
     TxtInfo: TLabel;
     TxtFrequency: TLabel;
     Panel2: TPanel;

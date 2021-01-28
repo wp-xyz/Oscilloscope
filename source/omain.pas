@@ -49,6 +49,7 @@ type
     PageControl: TPageControl;
     MeasurementPanel: TPanel;
     InputSplitter: TSplitter;
+    FrequencyPanel: TPanel;
     StartStopPanel: TPanel;
     PotFrequency: TuEKnob;
     SwFrequency: TuESelector;
