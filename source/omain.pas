@@ -46,6 +46,10 @@ type
     LblVolPerc: TLabel;
     LblRecorderSampleRate: TLabel;
     LblGeneratorSampleRate: TLabel;
+    InputNotebook: TNotebook;
+    RecorderPage: TPage;
+    PlayerPage: TPage;
+    WaveGeneratorPage: TPage;
     PageControl: TPageControl;
     MeasurementPanel: TPanel;
     InputSplitter: TSplitter;
