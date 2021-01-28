@@ -8,7 +8,7 @@ object MainForm: TMainForm
   ClientWidth = 940
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '1.7'
+  LCLVersion = '2.1.0.0'
   object InputPanel: TPanel
     Left = 0
     Height = 543
@@ -44,7 +44,7 @@ object MainForm: TMainForm
         Width = 41
         BorderSpacing.Left = 8
         Caption = 'Input'
-        Font.Color = clHotLight
+        Font.Color = clWindowText
         Font.Height = -16
         Font.Style = [fsBold, fsItalic]
         ParentColor = False
@@ -223,7 +223,7 @@ object MainForm: TMainForm
         Width = 102
         BorderSpacing.Left = 8
         Caption = 'Measurement'
-        Font.Color = clHotLight
+        Font.Color = clWindowText
         Font.Height = -16
         Font.Style = [fsBold, fsItalic]
         ParentColor = False
@@ -533,7 +533,6 @@ object MainForm: TMainForm
         Debug = False
         Max = 10
         MaxAngle = 3150
-        Min = 0
         MinAngle = 450
         Image.Data = {
           46120000424D4612000000000000360000002800000022000000220000000100
