@@ -199,13 +199,13 @@ object MainForm: TMainForm
       object RecorderPage: TPage
         object RecorderPanel: TPanel
           Left = 8
-          Height = 386
+          Height = 388
           Top = 8
           Width = 194
           Align = alClient
           BorderSpacing.Around = 8
           BevelOuter = bvNone
-          ClientHeight = 386
+          ClientHeight = 388
           ClientWidth = 194
           TabOrder = 0
           Visible = False
@@ -511,6 +511,7 @@ object MainForm: TMainForm
                 Height = 86
                 Top = 0
                 Width = 92
+                Transparent = False
                 Debug = False
                 Max = 10
                 MaxAngle = 3150
@@ -681,6 +682,7 @@ object MainForm: TMainForm
                 Height = 86
                 Top = 0
                 Width = 92
+                Transparent = False
                 Debug = False
                 MaxAngle = 2700
                 MinAngle = 900
