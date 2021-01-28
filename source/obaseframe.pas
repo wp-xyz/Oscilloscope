@@ -26,6 +26,7 @@ type
     GbLeftSensitivity: TGroupBox;
     GbRightSensitivity: TGroupBox;
     LEDLeft: TueLED;
+    LEDRightPanel: TPanel;
     LEDRight: TueLED;
     LeftAxisTransformations: TChartAxisTransformations;
     LeftAxisTransformationsAutoScaleAxisTransform1: TAutoScaleAxisTransform;
@@ -34,6 +35,7 @@ type
     PanDragTool: TPanDragTool;
     Panel1: TPanel;
     LeftSensitityPanel: TPanel;
+    LEDLeftPanel: TPanel;
     RightSensitivityPanel: TPanel;
     RightAxisTransformations: TChartAxisTransformations;
     RightAxisTransformationsAutoScaleAxisTransform1: TAutoScaleAxisTransform;
