@@ -469,12 +469,11 @@ object MainForm: TMainForm
       AnchorSideTop.Side = asrBottom
       AnchorSideRight.Control = WaveGeneratorPanel
       AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = WaveGeneratorPanel
       Left = 75
       Height = 23
       Top = 345
       Width = 135
-      Anchors = [akTop, akLeft, akRight, akBottom]
+      Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 12
       BorderSpacing.Bottom = 8
       DropDownCount = 24
@@ -932,21 +931,26 @@ object MainForm: TMainForm
       Width = 210
       Anchors = [akTop, akLeft, akRight]
       Caption = 'Wave form'
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.HorizontalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+      ChildSizing.EnlargeVertical = crsHomogenousChildResize
+      ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
+      ChildSizing.ShrinkVertical = crsHomogenousChildResize
+      ChildSizing.Layout = cclTopToBottomThenLeftToRight
+      ChildSizing.ControlsPerLine = 1
       ClientHeight = 32
       ClientWidth = 206
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 2
       object BtnSineWave: TSpeedButton
-        AnchorSideLeft.Control = GbWaveForm
-        AnchorSideBottom.Control = GbWaveForm
         AnchorSideBottom.Side = asrBottom
-        Left = 6
-        Height = 22
-        Top = 2
-        Width = 58
-        Anchors = [akLeft, akBottom]
-        BorderSpacing.Left = 6
+        Left = 4
+        Height = 24
+        Top = 0
+        Width = 65
+        AutoSize = True
         BorderSpacing.Bottom = 8
         Caption = 'Sine'
         Down = True
@@ -983,15 +987,13 @@ object MainForm: TMainForm
         ParentFont = False
       end
       object BtnTriangWave: TSpeedButton
-        AnchorSideLeft.Control = BtnSineWave
         AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = BtnSineWave
         AnchorSideBottom.Side = asrBottom
-        Left = 65
-        Height = 22
-        Top = 2
+        Left = 73
+        Height = 24
+        Top = 0
         Width = 58
-        BorderSpacing.Left = 1
+        AutoSize = True
         Caption = 'Tri.'
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
@@ -1026,16 +1028,13 @@ object MainForm: TMainForm
         ParentFont = False
       end
       object BtnSquareWave: TSpeedButton
-        AnchorSideLeft.Control = BtnTriangWave
-        AnchorSideLeft.Side = asrBottom
-        AnchorSideTop.Control = BtnSineWave
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
-        Left = 124
-        Height = 22
-        Top = 2
-        Width = 58
-        BorderSpacing.Left = 1
+        Left = 135
+        Height = 24
+        Top = 0
+        Width = 67
+        AutoSize = True
         Caption = 'Rect.'
         Glyph.Data = {
           36030000424D3603000000000000360000002800000010000000100000000100
