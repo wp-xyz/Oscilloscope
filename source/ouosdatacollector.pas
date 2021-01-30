@@ -128,12 +128,12 @@ end;
 { Returns true of the recording input with the specified index is on. }
 function TuosDataCollector.GetRecordingInputOn(AIndex: integer): Boolean;
 begin
-  Result := False;
+Result := False;
 end;
 
 function TuosDataCollector.GetInputType(AIndex: integer): string;
 begin
-
+result := '';
 end;
 
 function TuosDataCollector.GetRecordingSensitivity(AIndex: integer): single;
@@ -143,9 +143,8 @@ end;
 
 function TuosDataCollector.GetRunningTime: double;
 begin
-
   Result := uos_InputPositionSeconds(FChannel, 0);
- // Result := 0.7;
+  //Result := 10.0;
 end;
 
 function TuosDataCollector.GetWaveData(ABufPtr: Pointer; ABufSize: integer): integer;

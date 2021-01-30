@@ -845,11 +845,11 @@ envvarons=0
 [edit]
 hintwidth=314
 hintheight=214
-finddtext=Position
+finddtext=triangle
 findhistory=20
+ triangle
  Position
  InputPosition
- triangle
  latency
  StartPlayback
  GetWaveData
@@ -871,10 +871,10 @@ findoptions=1
 editpos=9
  0,-1073741823
  0,-1073741823
- 0,305
+ 0,145
  0,-1073741823
+ 28,7580
  0,-1073741823
- 0,786
  0,-1073741823
  0,-1073741823
  0,-1073741823
@@ -933,7 +933,7 @@ order=9
  5
  6
 firsttab=0
-index=2
+index=6
 [layout]
 windowlayout=573
  [mainfo.basedock]
@@ -975,7 +975,7 @@ windowlayout=573
  rcy=0
  wsize=0
  active=0
- visible=0
+ visible=1
  [threadsfo]
  splitdir=0
  useroptions=268451945
@@ -1400,11 +1400,11 @@ windowlayout=573
  nx=0
  ny=0
  ncx=1341
- ncy=16
+ ncy=12
  x=0
  y=0
  cx=1341
- cy=14
+ cy=10
  rcx=0
  rcy=0
  [debuggerfo.edit_options]
@@ -1414,7 +1414,7 @@ windowlayout=573
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/Oscilloscope/source/ouosdatacollector.pas
+ value=/home/fred/Oscilloscope/source/3rdParty/uos/uos.pas
  history=20
   /home/fred/Oscilloscope/source/ouosdatacollector.pas
   /home/fred/Oscilloscope/source/3rdParty/uos/uos_flat.pas
@@ -1468,7 +1468,7 @@ windowlayout=573
   5
   6
  firsttab=0
- index=2
+ index=6
  [confideufo.fontname]
  value=stf_default
  [confideufo.usedefaulteditoroptions]

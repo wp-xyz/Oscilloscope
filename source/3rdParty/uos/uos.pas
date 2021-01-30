@@ -7588,11 +7588,11 @@ begin
   begin
    if channel = 1 then
    begin
-    StreamIn[x].Data.LookupTableLeft[i]:= (((l - i)/(l/2)) -1);
+    StreamIn[x].Data.LookupTableLeft[i]:= ((l - i)/(l/2))-1;
    end; 
    if channel = 2 then
    begin
-   StreamIn[x].Data.LookupTableRight[i]:= (((l - i)/(l/2)) -1);
+   StreamIn[x].Data.LookupTableRight[i]:= ((l - i)/(l/2))-1;
     end; 
   end;
     
