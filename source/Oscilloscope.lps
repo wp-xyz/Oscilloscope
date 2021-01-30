@@ -56,8 +56,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="oOscilloscopeFrame"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="391"/>
+        <TopLine Value="390"/>
         <CursorPos X="3" Y="407"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>
@@ -70,7 +71,6 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="oSpectrumFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
         <UsageCount Value="25"/>
         <Loaded Value="True"/>

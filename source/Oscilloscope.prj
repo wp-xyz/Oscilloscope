@@ -18,9 +18,9 @@ order15=0
 order16=0
 order17=0
 [projectoptions]
-projectdir=/home/fred/Oscilloscope-uos/source
-projectfilename=/home/fred/Oscilloscope-uos/source/Oscilloscope.prj
-findinfiledialog=67
+projectdir=/home/fred/Oscilloscope/source
+projectfilename=/home/fred/Oscilloscope/source/Oscilloscope.prj
+findinfiledialog=68
  [findinfileadialogfo.subdirs]
  value=1
  [findinfileadialogfo.incurrentfile]
@@ -62,8 +62,9 @@ findinfiledialog=67
  filefilterindex=0
  filefilter="*.pas" "*.pp" "*.inc"
  [findinfileadialogfo.findtext]
- value=CbGeneratorSampleRate
- history=18
+ value=GetPlayedBytes
+ history=19
+  GetPlayedBytes
   CbGeneratorSampleRate
   TxtInfo
   TChannelIndex
@@ -429,7 +430,7 @@ stripmessageesc=0
 copymessages=0
 closemessages=0
 enablepurpose=1
-enablesource=1
+enablesource=0
 checkmethods=1
 colorerror=-1610612717
 colorwarning=-1610612712
@@ -844,8 +845,11 @@ envvarons=0
 [edit]
 hintwidth=314
 hintheight=214
-finddtext=latency
+finddtext=Position
 findhistory=20
+ Position
+ InputPosition
+ triangle
  latency
  StartPlayback
  GetWaveData
@@ -853,7 +857,6 @@ findhistory=20
  TBassDataCollector.Create
  CbAudioEngineChange
  synth
- triangle
  wavetype
  FillLookupTable
  typLsine
@@ -864,20 +867,16 @@ findhistory=20
  position
  uos_AddIntoDevOut
  click
- BASS_ChannelGetData
- uos_AddFromFile
 findoptions=1
-editpos=11
+editpos=9
  0,-1073741823
  0,-1073741823
+ 0,305
  0,-1073741823
  0,-1073741823
+ 0,786
  0,-1073741823
  0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,-1073741823
- 0,0
  0,-1073741823
 bookmarks0=0
 bookmarks1=0
@@ -888,35 +887,27 @@ bookmarks5=0
 bookmarks6=0
 bookmarks7=0
 bookmarks8=0
-bookmarks9=0
-bookmarks10=0
-sourcefiles=11
+sourcefiles=9
  ${PROJECTDIR}/ospectrumframe.pas
  ${PROJECTDIR}/omain.pas
  ${PROJECTDIR}/ouosdatacollector.pas
  ${PROJECTDIR}/odatacollector.pas
  ${PROJECTDIR}/3rdParty/uos/uos.pas
  ${PROJECTDIR}/3rdParty/uos/uos_flat.pas
- ${PROJECTDIR}/Oscilloscope.lpr
- ${PROJECTDIR}/Oscilloscope.lpr
  ${PROJECTDIR}/ooscilloscopeframe.pas
- ${PROJECTDIR}/Oscilloscope.lpr
  /home/fred/uos/examples/simplerecorder_fpGUI.pas
-relpaths=11
+ ${PROJECTDIR}/ooscilloscopeframe.pas
+relpaths=9
  ospectrumframe.pas
  omain.pas
  ouosdatacollector.pas
  odatacollector.pas
  3rdParty/uos/uos.pas
  3rdParty/uos/uos_flat.pas
- Oscilloscope.lpr
- Oscilloscope.lpr
  ooscilloscopeframe.pas
- Oscilloscope.lpr
  uos/examples/simplerecorder_fpGUI.pas
-ismoduletexts=11
- 0
- 0
+ ooscilloscopeframe.pas
+ismoduletexts=9
  0
  0
  0
@@ -931,22 +922,20 @@ moduleoptions=0
 visiblemodules=0
 nomenumodules=0
 [sourcefo.files_tab]
-order=11
+order=9
  0
+ 1
  2
- 3
- 4
- 10
- 6
  7
  8
- 9
+ 3
+ 4
  5
- 1
-firsttab=1
-index=8
+ 6
+firsttab=0
+index=2
 [layout]
-windowlayout=575
+windowlayout=573
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -986,7 +975,7 @@ windowlayout=575
  rcy=0
  wsize=0
  active=0
- visible=1
+ visible=0
  [threadsfo]
  splitdir=0
  useroptions=268451945
@@ -1080,7 +1069,7 @@ windowlayout=575
  x=0
  y=0
  cx=205
- cy=524
+ cy=526
  rcx=0
  rcy=0
  [projecttreefo.grid]
@@ -1368,7 +1357,7 @@ windowlayout=575
  [componentpalettefo]
  splitdir=0
  useroptions=268460139
- stackedunder=objectinspectorfo
+ stackedunder=
  parent=
  mdistate=3
  nx=0
@@ -1399,7 +1388,7 @@ windowlayout=575
  x=0
  y=0
  cx=1356
- cy=51
+ cy=49
  rcx=0
  rcy=0
  [debuggerfo.basedock]
@@ -1410,12 +1399,12 @@ windowlayout=575
  mdistate=0
  nx=0
  ny=0
- ncx=1356
- ncy=27
+ ncx=1341
+ ncy=16
  x=0
  y=0
- cx=1356
- cy=21
+ cx=1341
+ cy=14
  rcx=0
  rcy=0
  [debuggerfo.edit_options]
@@ -1425,13 +1414,15 @@ windowlayout=575
  [debuggerfo.edit_compiler]
  value=Pascal
  [debuggerfo.file_history]
- value=/home/fred/Oscilloscope-uos/source/Oscilloscope.lpr
+ value=/home/fred/Oscilloscope/source/ouosdatacollector.pas
  history=20
+  /home/fred/Oscilloscope/source/ouosdatacollector.pas
+  /home/fred/Oscilloscope/source/3rdParty/uos/uos_flat.pas
+  /home/fred/Oscilloscope/source/Oscilloscope.lpr
   /home/fred/Oscilloscope-uos/source/Oscilloscope.lpr
   /home/fred/Oscilloscope/source/ospectrumframe.pas
   /home/fred/uos/examples/consolesynth.pas
   /home/fred/uos/modifiedLGPL.txt
-  /home/fred/Oscilloscope/source/3rdParty/uos/uos_flat.pas
   /home/fred/Oscilloscope/source/3rdParty/uos/uos.pas
   /home/fred/Oscilloscope/source/obassdatacollector.pas
   /home/fred/Oscilloscope/source/omainuos.pas
@@ -1445,8 +1436,6 @@ windowlayout=575
   /home/fred/strumpract/src/mclasses.pas
   /home/fred/msetest/mclasses.pas
   /home/fred/ideu/src/msefpreadpng.pas
-  /home/fred/ideu/src/mseztream.pas
-  /home/fred/ideu/src/mclasses.pas
  [debuggerfo.project_options]
  value=1
  [debuggerfo.hints]
@@ -1464,24 +1453,22 @@ windowlayout=575
  x=208
  y=0
  cx=1148
- cy=524
+ cy=526
  rcx=0
  rcy=0
  [sourcefo.files_tab]
- order=11
+ order=9
   0
+  1
   2
-  3
-  4
-  10
-  6
   7
   8
-  9
+  3
+  4
   5
-  1
- firsttab=1
- index=8
+  6
+ firsttab=0
+ index=2
  [confideufo.fontname]
  value=stf_default
  [confideufo.usedefaulteditoroptions]
@@ -1517,9 +1504,9 @@ windowlayout=575
  ncx=0
  ncy=0
  x=0
- y=54
+ y=52
  cx=1356
- cy=524
+ cy=526
  rcx=0
  rcy=0
 [targetconsole]

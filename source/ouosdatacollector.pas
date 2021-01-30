@@ -142,10 +142,10 @@ begin
 end;
 
 function TuosDataCollector.GetRunningTime: double;
-var
-  p: QWord;
 begin
-  Result := uos_InputPositiontime(0, 0);
+
+  Result := uos_InputPositionSeconds(FChannel, 0);
+ // Result := 0.7;
 end;
 
 function TuosDataCollector.GetWaveData(ABufPtr: Pointer; ABufSize: integer): integer;
@@ -303,7 +303,8 @@ begin
     if uos_AddIntoDevOut(FChannel, -1, -1, FSampleRate, FNumChannels, 0, 2048 * FNumChannels, -1) <> -1 then
       if uos_AddFromFile(FChannel, PChar(AFileName), -1, 0, 2048 * FNumChannels) > -1 then
       begin
-        Result := True;
+       uos_InputSetPositionEnable(FChannel, 0, 1);
+       Result := True;
         uos_play(FChannel);
       end;
 end;

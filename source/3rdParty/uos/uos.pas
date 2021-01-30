@@ -1049,6 +1049,14 @@ function InputPosition(InputIndex: cint32): cint32;
 // InputIndex : InputIndex of existing input
 // result : current postion in sample
 
+function InputPositionSeconds(InputIndex: cint32): float;
+// InputIndex : InputIndex of existing input
+//  result : current postion of Input in seconds
+
+function InputPositionTime(InputIndex: cint32): TTime;
+// InputIndex : InputIndex of existing input
+//  result : current postion of Input in time format
+
 procedure InputSetFrameCount(InputIndex: cint32 ; framecount : cint32);
 // set number of frames to be done. (usefull for recording and level precision)
 
@@ -1093,14 +1101,6 @@ function InputGetBPM(InputIndex: cint32): float;
 // InputIndex : InputIndex of existing input
 // result : left level from 0 to 1
 {$endif}   
-
-function InputPositionSeconds(InputIndex: cint32): float;
-// InputIndex : InputIndex of existing input
-//  result : current postion of Input in seconds
-
-function InputPositionTime(InputIndex: cint32): TTime;
-// InputIndex : InputIndex of existing input
-//  result : current postion of Input in time format
 
 function InputUpdateTag(InputIndex: cint32): boolean;
 
@@ -7560,7 +7560,7 @@ begin
   
 for i:=0 to l-1 do  
 begin 
-  if typewave = 0 then // square
+  if typewave = 0 then // sine
   begin
    if channel = 1 then
     StreamIn[x].Data.LookupTableLeft[i]:=sin(i*nPI_l);
@@ -7588,11 +7588,11 @@ begin
   begin
    if channel = 1 then
    begin
-    StreamIn[x].Data.LookupTableLeft[i]:= (round((l - i)/(l/2)) -1);
+    StreamIn[x].Data.LookupTableLeft[i]:= (((l - i)/(l/2)) -1);
    end; 
    if channel = 2 then
    begin
-   StreamIn[x].Data.LookupTableRight[i]:= (round((l - i)/(l/2)) -1);
+   StreamIn[x].Data.LookupTableRight[i]:= (((l - i)/(l/2)) -1);
     end; 
   end;
     
