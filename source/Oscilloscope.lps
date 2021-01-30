@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="11"/>
+    <BuildModes Active="Default"/>
+    <Units Count="11">
+      <Unit0>
+        <Filename Value="Oscilloscope.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="25"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="omain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="MainForm"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="oMain"/>
+        <TopLine Value="365"/>
+        <CursorPos X="3" Y="375"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="obaseframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="BaseFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="oBaseFrame"/>
+        <UsageCount Value="25"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="oglobal.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="oGlobal"/>
+        <UsageCount Value="25"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="odatacollector.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="oDataCollector"/>
+        <UsageCount Value="25"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="obassdatacollector.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="oBASSDataCollector"/>
+        <UsageCount Value="25"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="ooscilloscopeframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="OscilloscopeFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="oOscilloscopeFrame"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="391"/>
+        <CursorPos X="3" Y="407"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="ospectrumframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="SpectrumFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="oSpectrumFrame"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="25"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="outils.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="oUtils"/>
+        <UsageCount Value="25"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="owav.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="oWav"/>
+        <UsageCount Value="25"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="ouosdatacollector.pas"/>
+        <UnitName Value="ouosDataCollector"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="22" Y="7"/>
+        <UsageCount Value="13"/>
+        <Loaded Value="True"/>
+      </Unit10>
+    </Units>
+    <JumpHistory Count="17" HistoryIndex="16">
+      <Position1>
+        <Filename Value="omain.pas"/>
+      </Position1>
+      <Position2>
+        <Filename Value="omain.pas"/>
+        <Caret Line="9" Column="15"/>
+      </Position2>
+      <Position3>
+        <Filename Value="omain.pas"/>
+        <Caret Line="226" Column="3" TopLine="224"/>
+      </Position3>
+      <Position4>
+        <Filename Value="omain.pas"/>
+        <Caret Line="460" Column="3" TopLine="458"/>
+      </Position4>
+      <Position5>
+        <Filename Value="omain.pas"/>
+        <Caret Line="461" Column="3" TopLine="459"/>
+      </Position5>
+      <Position6>
+        <Filename Value="omain.pas"/>
+        <Caret Line="462" Column="3" TopLine="460"/>
+      </Position6>
+      <Position7>
+        <Filename Value="omain.pas"/>
+        <Caret Line="461" Column="3" TopLine="459"/>
+      </Position7>
+      <Position8>
+        <Filename Value="omain.pas"/>
+        <Caret Line="467" Column="3" TopLine="465"/>
+      </Position8>
+      <Position9>
+        <Filename Value="omain.pas"/>
+        <Caret Line="252" Column="3" TopLine="250"/>
+      </Position9>
+      <Position10>
+        <Filename Value="omain.pas"/>
+        <Caret Line="251" Column="3" TopLine="249"/>
+      </Position10>
+      <Position11>
+        <Filename Value="omain.pas"/>
+        <Caret Line="258" Column="3" TopLine="256"/>
+      </Position11>
+      <Position12>
+        <Filename Value="omain.pas"/>
+        <Caret Line="229" Column="6" TopLine="227"/>
+      </Position12>
+      <Position13>
+        <Filename Value="omain.pas"/>
+        <Caret Line="230" Column="41" TopLine="227"/>
+      </Position13>
+      <Position14>
+        <Filename Value="omain.pas"/>
+        <Caret Line="228" Column="6" TopLine="227"/>
+      </Position14>
+      <Position15>
+        <Filename Value="omain.pas"/>
+        <Caret Line="385" Column="9" TopLine="371"/>
+      </Position15>
+      <Position16>
+        <Filename Value="omain.pas"/>
+        <Caret Line="435" Column="25" TopLine="427"/>
+      </Position16>
+      <Position17>
+        <Filename Value="ooscilloscopeframe.pas"/>
+        <Caret Line="7" Column="8"/>
+      </Position17>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

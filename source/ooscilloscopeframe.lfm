@@ -9,11 +9,58 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
     Left = 479
     Height = 466
     ClientHeight = 466
+    inherited GbLeftSensitivity: TGroupBox
+      inherited LeftSensitityPanel: TPanel
+        Height = 97
+        ClientHeight = 97
+        inherited SwLeftSensitivity: TuESelector
+          Height = 97
+        end
+      end
+    end
+    inherited GbRightSensitivity: TGroupBox
+      inherited RightSensitivityPanel: TPanel
+        Height = 97
+        ClientHeight = 97
+        inherited SwRightSensitivity: TuESelector
+          Height = 97
+        end
+      end
+    end
+    inherited CbLinkedSensitivities: TCheckBox
+      Left = 47
+      Height = 21
+      Width = 167
+    end
     inherited LEDLeftPanel: TPanel
+      Left = 84
+      Height = 18
+      Width = 38
+      ClientHeight = 18
+      ClientWidth = 38
       TabOrder = 6
+      inherited LEDLeft: TuELED
+        Left = 18
+      end
+      inherited CbLeftON: TCheckBox
+        Height = 18
+        Width = 18
+      end
     end
     inherited LEDRightPanel: TPanel
+      Left = 212
+      Height = 18
+      Width = 34
+      ClientHeight = 18
+      ClientWidth = 34
       TabOrder = 7
+      inherited LEDRight: TuELED
+        Left = 18
+      end
+      inherited CbRightON: TCheckBox
+        Height = 18
+        Width = 18
+      end
     end
     object GbTimeBase: TGroupBox[6]
       AnchorSideLeft.Control = GbLeftSensitivity
@@ -23,29 +70,30 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       AnchorSideRight.Side = asrBottom
       Left = 10
       Height = 116
-      Top = 183
+      Top = 185
       Width = 116
       Anchors = [akTop, akLeft, akRight]
       BorderSpacing.Top = 32
-      Caption = 'Time base (ms/div)'
-      ClientHeight = 96
+      Caption = 'Time Base (ms/div)'
+      ClientHeight = 101
       ClientWidth = 112
+      Font.Height = 10
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
       object TimeBasePanel: TPanel
         Left = 0
-        Height = 96
+        Height = 101
         Top = 0
         Width = 112
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 96
+        ClientHeight = 101
         ClientWidth = 112
         TabOrder = 0
         object SwTimebase: TuESelector
           Left = 0
-          Height = 96
+          Height = 101
           Top = 0
           Width = 112
           Debug = False
@@ -226,14 +274,15 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       AnchorSideRight.Control = GbRightSensitivity
       AnchorSideRight.Side = asrBottom
       Left = 134
-      Height = 205
-      Top = 183
+      Height = 206
+      Top = 185
       Width = 116
       Anchors = [akTop, akLeft, akRight]
       AutoSize = True
       Caption = 'Trigger (%)'
-      ClientHeight = 185
+      ClientHeight = 191
       ClientWidth = 112
+      Font.Height = 10
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 4
@@ -243,7 +292,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         AnchorSideTop.Control = TriggerPanel
         AnchorSideTop.Side = asrBottom
         Left = 23
-        Height = 23
+        Height = 29
         Top = 98
         Width = 66
         Alignment = taRightJustify
@@ -260,7 +309,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 8
         Height = 22
         Hint = 'Left channel'
-        Top = 129
+        Top = 135
         Width = 46
         AllowAllUp = True
         Anchors = [akTop, akLeft, akRight]
@@ -280,7 +329,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 58
         Height = 22
         Hint = 'Right channel'
-        Top = 129
+        Top = 135
         Width = 46
         AllowAllUp = True
         Anchors = [akTop, akLeft, akRight]
@@ -297,7 +346,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 8
         Height = 22
         Hint = 'Ascending signal'
-        Top = 155
+        Top = 161
         Width = 46
         AllowAllUp = True
         Anchors = [akTop, akLeft, akRight]
@@ -318,7 +367,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 58
         Height = 22
         Hint = 'Descending signal'
-        Top = 155
+        Top = 161
         Width = 46
         AllowAllUp = True
         Anchors = [akTop, akLeft, akRight]
@@ -524,8 +573,8 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       AnchorSideBottom.Control = GbTrigger
       AnchorSideBottom.Side = asrBottom
       Left = 10
-      Height = 58
-      Top = 330
+      Height = 59
+      Top = 332
       Width = 116
       Anchors = [akLeft, akRight, akBottom]
       AutoSize = True
@@ -544,12 +593,14 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 12
         Height = 30
         Top = 0
-        Width = 28
+        Width = 33
         BorderSpacing.Left = 12
         BorderSpacing.Bottom = 8
         Caption = 'Time'#13#10'Bytes'
+        Font.Height = 12
         ParentColor = False
         ParentFont = False
+        OnClick = TxtInfoClick
       end
     end
   end
@@ -559,7 +610,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
     ClientHeight = 474
     ClientWidth = 475
     inherited Chart: TChart
-      Height = 447
+      Height = 448
       Width = 475
       AxisList = <      
         item
@@ -633,13 +684,13 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
     end
     object Panel2: TPanel[1]
       Left = 0
-      Height = 27
-      Top = 447
+      Height = 26
+      Top = 448
       Width = 475
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 27
+      ClientHeight = 26
       ClientWidth = 475
       TabOrder = 1
       object CbShowSeriesPoints: TCheckBox
@@ -648,28 +699,32 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         AnchorSideBottom.Control = Panel2
         AnchorSideBottom.Side = asrBottom
         Left = 8
-        Height = 19
+        Height = 18
         Top = 4
-        Width = 146
+        Width = 164
         Anchors = [akTop, akLeft, akBottom]
         BorderSpacing.Left = 8
         BorderSpacing.Top = 4
         BorderSpacing.Bottom = 4
         Caption = 'Show lines and symbols'
+        Font.Height = 12
         OnChange = CbShowSeriesPointsChange
+        ParentFont = False
         TabOrder = 0
       end
       object TxtFrequency: TLabel
-        Left = 397
-        Height = 27
+        Left = 385
+        Height = 26
         Top = 0
-        Width = 70
+        Width = 82
         Align = alRight
         Alignment = taRightJustify
         BorderSpacing.Right = 8
         Caption = 'TxtFrequency'
+        Font.Height = 12
         Layout = tlCenter
         ParentColor = False
+        ParentFont = False
       end
     end
   end

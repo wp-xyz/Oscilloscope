@@ -291,8 +291,9 @@ begin
 
   if DataCollector.StartPlayback(AFileName) then
   begin
-    FSampleRate := DataCollector.GetSampleRate;
-    if Assigned(FOnBeginPlayback) then
+    
+   FSampleRate := DataCollector.GetSampleRate;
+   if Assigned(FOnBeginPlayback) then
       FOnBeginPlayback(self);
     SetupTimebase;
     FMode := prmPlay;
@@ -302,7 +303,10 @@ begin
     Timer.Enabled := false;
     FMode := prmNone;
     MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
+  
   end;
+  
+  
 end;
 
 function TBaseFrame.StartPlayback(AMemory: Pointer; ALength: DWord;

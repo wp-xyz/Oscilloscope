@@ -23,7 +23,6 @@ type
     BtnTriangWave: TSpeedButton;
     CbRecorderSampleRate: TComboBox;
     CbGeneratorSampleRate: TComboBox;
-    CbAudioEngine: TComboBox;
     DataPanelBevel: TBevel;
     BtnStart: TButton;
     BtnStop: TButton;
@@ -79,11 +78,8 @@ type
     procedure BtnSineWaveClick(Sender: TObject);
     procedure BtnStartClick(Sender: TObject);
     procedure BtnStopClick(Sender: TObject);
-    procedure CbAudioEngineChange(Sender: TObject);
-    procedure CbGeneratorSampleRateChange(Sender: TObject);
 
     procedure CbInputDeviceSelect(Sender: TObject);
-    procedure CbSource1Change(Sender: TObject);
     procedure CbSourceSelect(Sender: TObject);
     procedure CbVolumeLeftONClick(Sender: TObject);
     procedure CbGeneratorSampleRateSelect(Sender: TObject);
@@ -99,7 +95,6 @@ type
     procedure PageControlChange(Sender: TObject);
     procedure PageControlChanging(Sender: TObject; var AllowChange: Boolean);
     procedure PotFrequencyChange(Sender: TObject);
-    procedure SourcePanelClick(Sender: TObject);
 
     procedure SwFrequencyChange(Sender: TObject);
 
@@ -160,7 +155,7 @@ var
   wf: TWaveForm;
   ok: Boolean;
 begin
-  if DataCollector.Running then    // running --> pause
+ if DataCollector.Running then    // running --> pause
   begin
     FCurrentFrame.Pause;
     BtnStart.Caption := 'Resume';
@@ -224,37 +219,6 @@ begin
   Application.ProcessMessages;
 end;
 
-procedure TMainForm.CbAudioEngineChange(Sender: TObject);
-begin
-  DataCollector.Close;
-  DataCollector.Free;
-  FGeneratorStream.Free;
-  
-  sleep(100);  
- 
-  if CbAudioEngine.text = 'Bass' then
-  begin
-  DataCollector := TBassDataCollector.Create(Handle);
-  if not DataCollector.Open(44100, 2) then
-    MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
-  end;
-  if CbAudioEngine.text = 'uos' then 
-  begin
-  DataCollector := TuosDataCollector.Create(Handle);
-  if not DataCollector.Open(44100, 2) then 
-   MessageDlg('Some libraries did not load', mtError, [mbOK], 0);
-  end;
-  
-  
-  FGeneratorStream := TMemoryStream.Create;
-  
-end;
-
-procedure TMainForm.CbGeneratorSampleRateChange(Sender: TObject);
-begin
-
-end;
-
 procedure TMainForm.CbGeneratorSampleRateSelect(Sender: TObject);
 begin
   UpdateWav;
@@ -272,11 +236,6 @@ begin
   DataCollector.SetRecordingInputActive(CbInputDevice.ItemIndex, true);
   // Update info
   UpdateInputInfo;
-end;
-
-procedure TMainForm.CbSource1Change(Sender: TObject);
-begin
-
 end;
 
 procedure TMainForm.CbSourceSelect(Sender: TObject);
@@ -386,12 +345,22 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var
   ci: TChannelIndex;
 begin
-
-   DataCollector := TBassDataCollector.Create(Handle);
+//{
+  if not assigned(DataCollector) then
+  DataCollector := TBassDataCollector.Create(Handle);
   if not DataCollector.Open(44100, 2) then begin
     MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
-   // Halt;
+    Halt;
+  end;  
+//}
+
+ if not assigned(DataCollector) then
+   DataCollector := TuosDataCollector.Create(Handle);
+  if not DataCollector.Open(44100, 2) then begin
+   MessageDlg('Some libraries did not load', mtError, [mbOK], 0);
+ //   Halt;
   end;
+
 
   ReadIni;
 
@@ -403,7 +372,6 @@ begin
   FFrames[0].OnBeginPlayback := @PlaybackBeginHandler;
   FFrames[0].OnEndPlayback := @PlaybackEndHandler;
   FFrames[0].OnDataReceived := @PlaybackDataReceivedHandler;
-
   FFrames[1] := TSpectrumFrame.Create(self);
   FFrames[1].Parent := PgSpectrum;
   FFrames[1].Align := alClient;
@@ -477,11 +445,6 @@ begin
   UpdateFrequency;
   UpdateWav;
   dec(FFrequencyLock);
-end;
-
-procedure TMainForm.SourcePanelClick(Sender: TObject);
-begin
-
 end;
 
 procedure TMainForm.PlaybackBeginHandler(Sender: TObject);
@@ -584,8 +547,8 @@ end;
 
 procedure TMainForm.TbRecordingLevelChange(Sender: TObject);
 begin
-  DataCollector.SetRecordingInputActive(CbInputDevice.ItemIndex, true, TbRecordingLevel.Position / 100);
-  InfoRecordingLevel.Caption := IntToStr(TbRecordingLevel.Position) + '%';
+   DataCollector.SetRecordingInputActive(CbInputDevice.ItemIndex, true, TbRecordingLevel.Position / 100);
+   InfoRecordingLevel.Caption := IntToStr(TbRecordingLevel.Position) + '%';
 end;
 
 procedure TMainForm.TbVolumeChange(Sender: TObject);
@@ -630,7 +593,7 @@ var
   wf: TWaveForm;
   wasRunning: Boolean;
 begin
-  if Assigned(DataCollector) and (DataCollector.Running or DataCollector.Paused)
+  if (Assigned(DataCollector) and (DataCollector.Running or DataCollector.Paused)) 
   then begin
     wasRunning := DataCollector.Running;
     DataCollector.Stop;

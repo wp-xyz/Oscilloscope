@@ -3,12 +3,12 @@ program Oscilloscope;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFDEF UNIX}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, uecontrols, tachartlazaruspkg, oMain, oBaseFrame, oGlobal,
-  oDataCollector, oBASSDataCollector, oOscilloscopeFrame, oSpectrumFrame,
+  oDataCollector, oBASSDataCollector, ouosDataCollector, oOscilloscopeFrame, oSpectrumFrame,
   oUtils, oWav
   { you can add units after this };
 

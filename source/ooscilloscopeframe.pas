@@ -43,6 +43,7 @@ type
       AIndex: Integer; var AItem: TChartDataItem);
     procedure SwTimebaseChange(Sender: TObject);
     procedure TimerEventHandler(Sender: TObject);
+    procedure TxtInfoClick(Sender: TObject);
 
   private
     FTriggerLevelLock: Integer;
@@ -70,8 +71,8 @@ implementation
 
 uses
   Math,
-  TAChartUtils, TAChartAxis, TACustomSeries,
-  oUtils, oDataCollector;
+  TAChartUtils, TAChartAxis, TACustomSeries, ouosDataCollector,
+  oUtils, oDataCollector, omain;
 
 
 { TOscilloscopeFrame }
@@ -340,26 +341,27 @@ end;
 
 procedure TOscilloscopeFrame.TimerEventHandler(Sender: TObject);
 var
-  n: Integer;
+  n, i: Integer;
   level: Double;
   triggerch: TChannelIndex;
   f: Double;
   s: String;
 begin
   // Stop if no more data available
+
   if not FDataCollector.Running then
   begin
     Stop;
     exit;
   end;
 
-  if Length(FData) = 0 then
-    exit;
-
+  if Length(FData) = 0 then  exit;
+    
   // Get data
   n := FDataCollector.GetWaveData(@FData[0], Length(FData)*SizeOf(TChannelData));
-
-  // prepare series
+  
+  if MainForm.CbAudioEngine.text = 'uos' then FData := AData;
+   // prepare series
   LeftChannelChartSource.Reset;
   RightChannelChartSource.Reset;
 
@@ -398,6 +400,11 @@ begin
   // Notify main form of received data
   if Assigned(OnDataReceived) then
     OnDataReceived(self);
+end;
+
+procedure TOscilloscopeFrame.TxtInfoClick(Sender: TObject);
+begin
+
 end;
 
 end.
