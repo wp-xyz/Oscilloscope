@@ -122,7 +122,7 @@ end;
   AIndex is the index of the device which is currently on. }
 procedure TuosDataCollector.GetRecordingDeviceList(AList: TStrings; out AIndex: integer);
 begin
-  
+//  
 end;
 
 { Returns true of the recording input with the specified index is on. }
@@ -138,7 +138,7 @@ end;
 
 function TuosDataCollector.GetRecordingSensitivity(AIndex: integer): single;
 begin
-  Result := 0.0;
+Result := 0.0;
 end;
 
 function TuosDataCollector.GetRunningTime: double;

@@ -96,7 +96,6 @@ object MainForm: TMainForm
       ClientHeight = 62
       ClientWidth = 194
       TabOrder = 1
-      OnClick = SourcePanelClick
       object LblSource: TLabel
         AnchorSideLeft.Control = SourcePanel
         AnchorSideTop.Control = SourcePanel
@@ -217,7 +216,7 @@ object MainForm: TMainForm
       Height = 438
       Top = 106
       Width = 210
-      PageIndex = 2
+      PageIndex = 0
       Align = alClient
       TabOrder = 3
       object RecorderPage: TPage
@@ -449,7 +448,6 @@ object MainForm: TMainForm
             BorderSpacing.Bottom = 8
             DropDownCount = 24
             ItemHeight = 0
-            OnChange = CbGeneratorSampleRateChange
             OnSelect = CbGeneratorSampleRateSelect
             ParentFont = False
             Style = csDropDownList

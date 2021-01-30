@@ -80,10 +80,7 @@ type
     procedure BtnStartClick(Sender: TObject);
     procedure BtnStopClick(Sender: TObject);
     procedure CbAudioEngineChange(Sender: TObject);
-    procedure CbGeneratorSampleRateChange(Sender: TObject);
-
     procedure CbInputDeviceSelect(Sender: TObject);
-    procedure CbSource1Change(Sender: TObject);
     procedure CbSourceSelect(Sender: TObject);
     procedure CbVolumeLeftONClick(Sender: TObject);
     procedure CbGeneratorSampleRateSelect(Sender: TObject);
@@ -99,8 +96,6 @@ type
     procedure PageControlChange(Sender: TObject);
     procedure PageControlChanging(Sender: TObject; var AllowChange: Boolean);
     procedure PotFrequencyChange(Sender: TObject);
-    procedure SourcePanelClick(Sender: TObject);
-
     procedure SwFrequencyChange(Sender: TObject);
 
     procedure TbDutyCycleChange(Sender: TObject);
@@ -250,11 +245,6 @@ begin
   
 end;
 
-procedure TMainForm.CbGeneratorSampleRateChange(Sender: TObject);
-begin
-
-end;
-
 procedure TMainForm.CbGeneratorSampleRateSelect(Sender: TObject);
 begin
   UpdateWav;
@@ -272,11 +262,6 @@ begin
   DataCollector.SetRecordingInputActive(CbInputDevice.ItemIndex, true);
   // Update info
   UpdateInputInfo;
-end;
-
-procedure TMainForm.CbSource1Change(Sender: TObject);
-begin
-
 end;
 
 procedure TMainForm.CbSourceSelect(Sender: TObject);
@@ -479,16 +464,12 @@ begin
   dec(FFrequencyLock);
 end;
 
-procedure TMainForm.SourcePanelClick(Sender: TObject);
-begin
-
-end;
-
-procedure TMainForm.PlaybackBeginHandler(Sender: TObject);
-begin
-end;
-
 procedure TMainForm.PlaybackDataReceivedHandler(Sender: TObject);
+begin
+  //
+end;
+
+procedure TMainForm.PlaybackBeginHandler(Sender: TObject);  
 begin
   //
 end;

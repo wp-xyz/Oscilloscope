@@ -43,8 +43,6 @@ type
       AIndex: Integer; var AItem: TChartDataItem);
     procedure SwTimebaseChange(Sender: TObject);
     procedure TimerEventHandler(Sender: TObject);
-    procedure TxtInfoClick(Sender: TObject);
-
   private
     FTriggerLevelLock: Integer;
     FTriggerIndex: Integer;
@@ -400,11 +398,6 @@ begin
   // Notify main form of received data
   if Assigned(OnDataReceived) then
     OnDataReceived(self);
-end;
-
-procedure TOscilloscopeFrame.TxtInfoClick(Sender: TObject);
-begin
-
 end;
 
 end.

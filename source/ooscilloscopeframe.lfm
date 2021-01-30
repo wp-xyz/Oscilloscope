@@ -600,7 +600,6 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Font.Height = 10
         ParentColor = False
         ParentFont = False
-        OnClick = TxtInfoClick
       end
     end
   end
