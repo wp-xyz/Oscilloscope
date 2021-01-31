@@ -156,6 +156,9 @@ var
   wf: TWaveForm;
   ok: Boolean;
 begin
+  if not Assigned(DataCollector) then
+    exit;
+
   if DataCollector.Running then    // running --> pause
   begin
     FCurrentFrame.Pause;
@@ -235,6 +238,9 @@ procedure TMainForm.CbInputDeviceSelect(Sender: TObject);
 var
   i: Integer;
 begin
+  if DataCollector = nil then
+    exit;
+
   // first disable all inputs ...
   for i:=0 to CbInputDevice.Items.Count-1 do
     DataCollector.SetRecordingInputActive(i, false);
@@ -259,7 +265,8 @@ begin
       begin
         RecorderPanel.Top := SourcePanel.Height;
         RecorderPanel.Show;
-        DataCollector.GetRecordingDeviceList(CbInputDevice.Items, i);
+        if Assigned(DataCollector) then
+          DataCollector.GetRecordingDeviceList(CbInputDevice.Items, i);
         CbInputDevice.ItemIndex := i;
         CbInputDeviceSelect(Self);  // display info
         UpdateCaption;
@@ -349,15 +356,31 @@ end;
 
 procedure TMainForm.FormActivate(Sender: TObject);
 var
-  w: Integer;
+  w, wk: Integer;
 begin
   w := MaxValue([BtnStart.Width, BtnStop.Width]);
   BtnStart.Width := w;
   BtnStop.Width := w;
 
-  InputPanel.Constraints.MinWidth := RunLED.Width + BtnStart.Width * 2 + 4* BtnStart.BorderSpacing.Left;
+  with SwFrequency do
+    wk := DefKnobRadius + 2*LTicksSize + 2*GetTextWidth('100k', SwFrequency.ValuesFont) + 2*SwFrequency.ValuesMargin;
+
+  BtnSineWave.Constraints.MinHeight := BtnStart.Height;
+  BtnTriangWave.Constraints.MinHeight := BtnStart.Height;
+  BtnSquareWave.Constraints.MinHeight := BtnStart.Height;
+  w := MaxValue([BtnSineWave.Width, BtnTriangWave.Width, BtnSquareWave.Width]);
+  InputPanel.Constraints.MinWidth := MaxValue([
+    RunLED.Width + 2*BtnStart.Width + 4*BtnStart.BorderSpacing.Left,
+    3*w + GbWaveForm.ChildSizing.HorizontalSpacing*2 + GbWaveForm.ChildSizing.LeftRightSpacing,
+    2*wk + Bevel3.Width
+  ]);
+  GbWaveForm.ChildSizing.Layout := cclTopToBottomThenLeftToRight;
 
   FFrames[0].AutoSizeControls;
+  FFrames[1].AutoSizeControls;
+
+  if TInputMode(CbSource.ItemIndex) = imRecorder then
+    CbSourceSelect(nil);
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -420,8 +443,11 @@ begin
     WriteIni;
   except
   end;
-  DataCollector.Close;
-  DataCollector.Free;
+  if Assigned(DataCollector) then
+  begin
+    DataCollector.Close;
+    DataCollector.Free;
+  end;
   FGeneratorStream.Free;
 end;
 
@@ -537,7 +563,11 @@ begin
 
     FFrames[0].ControlPanel.Width := ini.ReadInteger('Oscilloscope', 'ControlPanelWidth', FFrames[0].ControlPanel.Width);
     ShowLinesAndSymbols := ini.ReadBool('Oscilloscope', 'ShowLinesAndSymbols', ShowLinesAndSymbols);
+
+    FFrames[1].ControlPanel.Width := ini.ReadInteger('SpectrumAnalyzer', 'ControlPanelWidth', FFrames[1].ControlPanel.Width);
     LogFrequencyAxis := ini.ReadBool('SpectrumAnalyzer', 'LogFrequenyAxis', LogFrequencyAxis);
+    SpectrumDB := ini.ReadBool('SpectrumAnalyzer', 'dB', SpectrumDB);
+
   finally
     ini.Free;
   end;
@@ -617,6 +647,8 @@ end;
 
 procedure TMainForm.TbRecordingLevelChange(Sender: TObject);
 begin
+  if not Assigned(DataCollector) then
+    exit;
   DataCollector.SetRecordingInputActive(CbInputDevice.ItemIndex, true, TbRecordingLevel.Position / 100);
   InfoRecordingLevel.Caption := IntToStr(TbRecordingLevel.Position) + '%';
 end;
@@ -710,7 +742,10 @@ begin
 
     ini.WriteInteger('Oscilloscope', 'ControlPanelWidth', FFrames[0].ControlPanel.Width);
     ini.WriteBool('Oscilloscope', 'ShowLinesAndSymbols', ShowLinesAndSymbols);
+
+    ini.WriteInteger('SpectrumAnalyzer', 'ControlPanelWidth', FFrames[1].ControlPanel.Width);
     ini.WriteBool('SpectrumAnalyzer', 'LogFrequenyAxis', LogFrequencyAxis);
+    ini.WriteBool('SpectrumAnalyzer', 'dB', SpectrumDB);
   finally
     ini.Free;
   end;

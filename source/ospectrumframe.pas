@@ -19,12 +19,11 @@ type
     FrequencyAxisTransform: TChartAxisTransformations;
     FrequencyAxisTransformLog: TLogarithmAxisTransform;
     GbInfo: TGroupBox;
-    GbSamplingPeriod: TGroupBox;
     LogLabelsSource: TListChartSource;
     Panel2: TPanel;
     RgChannels: TRadioGroup;
+    Splitter1: TSplitter;
     TxtInfo: TLabel;
-    TxtSamplingPeriod: TLabel;
     RgSamples: TRadioGroup;
     procedure CbLogarithmicChange(Sender: TObject);
     procedure CbYdBChange(Sender: TObject);
@@ -50,11 +49,13 @@ type
     procedure PopulateNumSamples;
     procedure SetSensitivity(AChannelIndex: TChannelIndex; AValue: Double); override;
     procedure SetupTimebase; override;
+    procedure UpdateInfo;
 
   public
     constructor Create(AOwner: TComponent); override;
     procedure Activate; override;
     procedure Deactivate; override;
+    procedure AutoSizeControls; override;
   end;
 
 
@@ -77,7 +78,7 @@ begin
   PopulateLogLabels;
   CbLogarithmic.Checked := LogFrequencyAxis;
   CbLogarithmicChange(nil);
-  TxtSamplingPeriod.Caption := '';
+  CbYdB.Checked := SpectrumDB;
   BoldRadiogroup(RgSamples);
   BoldRadioGroup(RgChannels);
   PopulateSensitivity(SwLeftSensitivity);
@@ -88,8 +89,18 @@ procedure TSpectrumFrame.Activate;
 begin
   inherited;
   CbLogarithmic.Checked := LogFrequencyAxis;
+  CbYdB.Checked := SpectrumDB;
   SetupTimebase;
   Timer.Enabled := Assigned(FDataCollector) and FDataCollector.Running;
+end;
+
+procedure TSpectrumFrame.AutoSizeControls;
+var
+  wk: Integer;
+begin
+  with SwLeftSensitivity do
+    wk := DefKnobRadius + 2*LTicksSize + 2*GetTextWidth('50%', ValuesFont) + 2*ValuesMargin;
+  ControlPanel.Constraints.MinWidth := 2*wk + CenterBevel.Width;
 end;
 
 procedure TSpectrumFrame.CbLogarithmicChange(Sender: TObject);
@@ -124,6 +135,7 @@ end;
 
 procedure TSpectrumFrame.CbYdBChange(Sender: TObject);
 begin
+  SpectrumDB := CbYdB.Checked;
   ParamsToControls;
 end;
 
@@ -140,9 +152,11 @@ begin
   else
     exit;
   TxtInfo.Caption := Format(
-    'f = %.3f kHz'#13 +
-    '%s = %.3f', [
-    series.GetXValue(ASender.PointIndex), s, series.GetYValue(ASender.PointIndex)
+    'f = %.3f kHz' + LineEnding +
+    '%s = %.3f' + LineEnding +
+    'Sampling period = %.0f ms', [
+    series.GetXValue(ASender.PointIndex), s, series.GetYValue(ASender.PointIndex),
+    GetNumSamples / FSampleRate * 1000
   ]);
   GbInfo.Show;
 end;
@@ -287,7 +301,6 @@ begin
 
   if Assigned(FDataCollector) then
     FDataCollector.SampleRate := FSampleRate;
-  TxtSamplingPeriod.Caption := Format('%.0fms', [t]);
   bufsize := n div 2 * ch * SizeOf(Single);
   SetLength(FData, bufsize);
   LeftChannelChartSource.PointsNumber := n div (2*ch);
@@ -321,18 +334,26 @@ begin
 
   // Progress info display
   if not FCrosshairActive then begin
-    TxtInfo.Caption := Format(
-      'Time: %s'#13+
-      'Bytes: %.0n', [
-      FormatDateTime('nn:ss.zzz', FDataCollector.GetRunningTime / (24*60*60)),
-      FDataCollector.GetPlayedBytes*1.0
-    ]);
+    UpdateInfo;
     if not GbInfo.Visible then GbInfo.Show;
   end;
 
   // Notify main form of received data
   if Assigned(OnDataReceived) then
     OnDataReceived(self);
+end;
+
+procedure TSpectrumFrame.UpdateInfo;
+begin
+  TxtInfo.Caption := Format(
+    'Time: %s' + LineEnding +
+    'Bytes: %.0n' + LineEnding +
+    'Sampling period: %.0n ms', [
+    FormatDateTime('nn:ss.zzz',
+    FDataCollector.GetRunningTime / (24*60*60)),
+    FDataCollector.GetPlayedBytes*1.0,
+    GetNumSamples / FSampleRate * 1000
+  ]);
 end;
 
 end.

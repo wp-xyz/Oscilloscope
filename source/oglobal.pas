@@ -49,6 +49,7 @@ var
   NoDamageWarning_Out: Boolean = false;
   ShowLinesAndSymbols: Boolean = false;
   LogFrequencyAxis: Boolean = true;
+  SpectrumDB: Boolean = false;
 
 
 implementation

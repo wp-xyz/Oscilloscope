@@ -17,6 +17,8 @@ function CheckboxMessageDlg(const AMsg, ACheckboxMsg: string;
 
 procedure BoldRadioGroup(AControl: TRadiogroup);
 
+function GetTextWidth(AText: String; AFont: TFont): Integer;
+
 procedure PopulateSensitivity(ASelector: TueSelector);
 
 procedure WriteWavStream(AStream: TStream; Frequency, Amplitude: Double;
@@ -60,6 +62,17 @@ begin
   AControl.Font.Style := [fsBold];
   for i:=0 to AControl.ControlCount-1 do
     AControl.Controls[i].Font.Style := [];
+end;
+
+function GetTextWidth(AText: String; AFont: TFont): Integer;
+var
+  bmp: TBitmap;
+begin
+  bmp := TBitmap.Create;
+  bmp.SetSize(1, 1);
+  bmp.Canvas.Font.Assign(AFont);
+  Result := bmp.Canvas.TextWidth(AText);
+  bmp.Free;
 end;
 
 procedure PopulateSensitivity(ASelector: TuESelector);

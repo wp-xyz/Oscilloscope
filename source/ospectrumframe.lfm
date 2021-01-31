@@ -1,31 +1,59 @@
 inherited SpectrumFrame: TSpectrumFrame
-  Height = 447
-  Width = 677
-  ClientHeight = 447
-  ClientWidth = 677
+  Height = 449
+  Width = 693
+  ClientHeight = 449
+  ClientWidth = 693
   DesignLeft = 446
   DesignTop = 259
   inherited ControlPanel: TPanel
-    Left = 413
-    Height = 439
+    Left = 544
+    Height = 441
+    Width = 145
     Anchors = [akRight, akBottom]
-    ClientHeight = 439
+    ClientHeight = 441
+    ClientWidth = 145
     inherited GbLeftSensitivity: TGroupBox
-      TabOrder = 7
+      Width = 58
+      ClientWidth = 54
+      TabOrder = 6
+      inherited LeftSensitityPanel: TPanel
+        Width = 54
+        ClientWidth = 54
+        inherited SwLeftSensitivity: TuESelector
+          Width = 54
+        end
+      end
     end
     inherited GbRightSensitivity: TGroupBox
-      TabOrder = 5
+      Left = 76
+      Width = 59
+      ClientWidth = 55
+      TabOrder = 4
+      inherited RightSensitivityPanel: TPanel
+        Width = 55
+        ClientWidth = 55
+        inherited SwRightSensitivity: TuESelector
+          Width = 55
+        end
+      end
     end
     inherited CenterBevel: TBevel
       AnchorSideRight.Control = nil
+      Left = 68
       Height = 104
       Top = 16
     end
     inherited CbLinkedSensitivities: TCheckBox
-      TabOrder = 6
+      Left = 13
+      TabOrder = 5
     end
     inherited LEDLeftPanel: TPanel
-      TabOrder = 8
+      Left = 24
+      TabOrder = 7
+    end
+    inherited LEDRightPanel: TPanel
+      Left = 95
+      TabOrder = 3
     end
     object RgSamples: TRadioGroup[6]
       AnchorSideLeft.Control = ControlPanel
@@ -36,7 +64,7 @@ inherited SpectrumFrame: TSpectrumFrame
       Left = 10
       Height = 47
       Top = 163
-      Width = 240
+      Width = 125
       Anchors = [akTop, akLeft, akRight]
       AutoFill = True
       AutoSize = True
@@ -53,7 +81,7 @@ inherited SpectrumFrame: TSpectrumFrame
       ChildSizing.Layout = cclTopToBottomThenLeftToRight
       ChildSizing.ControlsPerLine = 1
       ClientHeight = 27
-      ClientWidth = 236
+      ClientWidth = 121
       ColumnLayout = clVerticalThenHorizontal
       Columns = 2
       Items.Strings = (
@@ -63,44 +91,16 @@ inherited SpectrumFrame: TSpectrumFrame
       OnClick = RgSamplesClick
       TabOrder = 0
     end
-    object GbSamplingPeriod: TGroupBox[7]
+    object RgChannels: TRadioGroup[7]
       AnchorSideLeft.Control = RgSamples
       AnchorSideTop.Control = RgSamples
       AnchorSideTop.Side = asrBottom
       AnchorSideRight.Control = RgSamples
       AnchorSideRight.Side = asrBottom
       Left = 10
-      Height = 48
-      Top = 222
-      Width = 240
-      Anchors = [akTop, akLeft, akRight]
-      BorderSpacing.Top = 12
-      Caption = 'Sampling period'
-      ClientHeight = 28
-      ClientWidth = 236
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 1
-      object TxtSamplingPeriod: TLabel
-        Left = 12
-        Height = 15
-        Top = 4
-        Width = 99
-        Caption = 'TxtSamplingPeriod'
-        ParentColor = False
-        ParentFont = False
-      end
-    end
-    object RgChannels: TRadioGroup[8]
-      AnchorSideLeft.Control = RgSamples
-      AnchorSideTop.Control = GbSamplingPeriod
-      AnchorSideTop.Side = asrBottom
-      AnchorSideRight.Control = RgSamples
-      AnchorSideRight.Side = asrBottom
-      Left = 10
       Height = 47
-      Top = 282
-      Width = 240
+      Top = 222
+      Width = 125
       Anchors = [akTop, akLeft, akRight]
       AutoFill = True
       AutoSize = True
@@ -115,7 +115,7 @@ inherited SpectrumFrame: TSpectrumFrame
       ChildSizing.Layout = cclLeftToRightThenTopToBottom
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 27
-      ClientWidth = 236
+      ClientWidth = 121
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
@@ -123,54 +123,54 @@ inherited SpectrumFrame: TSpectrumFrame
         'stereo'
       )
       OnClick = RgChannelsClick
-      TabOrder = 2
+      TabOrder = 1
     end
-    object GbInfo: TGroupBox[9]
+    object GbInfo: TGroupBox[8]
       AnchorSideLeft.Control = ControlPanel
       AnchorSideRight.Control = ControlPanel
       AnchorSideRight.Side = asrBottom
       AnchorSideBottom.Control = ControlPanel
       AnchorSideBottom.Side = asrBottom
       Left = 10
-      Height = 58
-      Top = 371
-      Width = 240
+      Height = 88
+      Top = 343
+      Width = 125
       Anchors = [akLeft, akRight, akBottom]
       AutoSize = True
       BorderSpacing.Left = 8
       BorderSpacing.Right = 8
       BorderSpacing.Bottom = 8
       Caption = 'Info'
-      ClientHeight = 38
-      ClientWidth = 236
+      ClientHeight = 68
+      ClientWidth = 121
       Font.Style = [fsBold]
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 2
       Visible = False
       object TxtInfo: TLabel
         AnchorSideLeft.Control = GbInfo
         AnchorSideTop.Control = GbInfo
         AnchorSideBottom.Side = asrBottom
         Left = 12
-        Height = 30
+        Height = 60
         Top = 0
-        Width = 28
+        Width = 87
         BorderSpacing.Left = 12
         BorderSpacing.Bottom = 8
-        Caption = 'Time'#13#10'Bytes'
+        Caption = 'Time'#13#10'Bytes'#13#10#13#10'Sampling period'
         ParentColor = False
         ParentFont = False
       end
     end
   end
   inherited Panel1: TPanel
-    Height = 447
-    Width = 409
-    ClientHeight = 447
-    ClientWidth = 409
+    Height = 449
+    Width = 535
+    ClientHeight = 449
+    ClientWidth = 535
     inherited Chart: TChart
-      Height = 420
-      Width = 409
+      Height = 422
+      Width = 535
       AxisList = <      
         item
           Grid.Color = clTeal
@@ -244,13 +244,13 @@ inherited SpectrumFrame: TSpectrumFrame
     object Panel2: TPanel[1]
       Left = 0
       Height = 27
-      Top = 420
-      Width = 409
+      Top = 422
+      Width = 535
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
       ClientHeight = 27
-      ClientWidth = 409
+      ClientWidth = 535
       TabOrder = 1
       object CbLogarithmic: TCheckBox
         AnchorSideLeft.Control = Panel2
@@ -287,32 +287,44 @@ inherited SpectrumFrame: TSpectrumFrame
       end
     end
   end
-  inherited LeftChannelChartSource: TUserDefinedChartSource
+  object Splitter1: TSplitter[2]
+    Left = 535
+    Height = 449
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+  end
+  inherited LeftChannelChartSource: TUserDefinedChartSource[3]
     OnGetChartDataItem = LeftChannelChartSourceGetChartDataItem
   end
-  inherited RightChannelChartSource: TUserDefinedChartSource
+  inherited LeftAxisTransformations: TChartAxisTransformations[4]
+  end
+  inherited RightChannelChartSource: TUserDefinedChartSource[5]
     OnGetChartDataItem = RightChannelChartSourceGetChartDataItem
   end
-  inherited Timer: TTimer
+  inherited RightAxisTransformations: TChartAxisTransformations[6]
+  end
+  inherited Timer: TTimer[7]
     OnTimer = TimerEventHandler
     Left = 184
     Top = 24
   end
-  inherited ChartToolset: TChartToolset
+  inherited ChartToolset: TChartToolset[8]
     Left = 280
     Top = 288
     inherited DataPointCrosshairTool: TDataPointCrosshairTool
       OnDraw = DataPointCrosshairToolDraw
     end
   end
-  object FrequencyAxisTransform: TChartAxisTransformations[8]
+  object FrequencyAxisTransform: TChartAxisTransformations[9]
     Left = 175
     Top = 226
     object FrequencyAxisTransformLog: TLogarithmAxisTransform
       Base = 10
     end
   end
-  object LogLabelsSource: TListChartSource[9]
+  object LogLabelsSource: TListChartSource[10]
     Left = 175
     Top = 288
   end

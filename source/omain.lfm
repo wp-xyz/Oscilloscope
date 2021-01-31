@@ -1,7 +1,7 @@
 object MainForm: TMainForm
-  Left = 231
+  Left = 344
   Height = 583
-  Top = 46
+  Top = 170
   Width = 940
   Caption = 'Oscilloscope'
   ClientHeight = 583
@@ -14,11 +14,11 @@ object MainForm: TMainForm
     Left = 0
     Height = 583
     Top = 0
-    Width = 210
+    Width = 219
     Align = alLeft
     BevelOuter = bvNone
     ClientHeight = 583
-    ClientWidth = 210
+    ClientWidth = 219
     Color = clInactiveBorder
     ParentColor = False
     TabOrder = 0
@@ -26,12 +26,12 @@ object MainForm: TMainForm
       Left = 0
       Height = 28
       Top = 0
-      Width = 210
+      Width = 219
       Align = alTop
       Alignment = taLeftJustify
       BevelOuter = bvNone
       ClientHeight = 28
-      ClientWidth = 210
+      ClientWidth = 219
       Color = clInactiveBorder
       ParentColor = False
       TabOrder = 0
@@ -56,7 +56,7 @@ object MainForm: TMainForm
         Left = 0
         Height = 4
         Top = 24
-        Width = 210
+        Width = 219
         Align = alBottom
         Shape = bsBottomLine
       end
@@ -66,7 +66,7 @@ object MainForm: TMainForm
         AnchorSideTop.Side = asrBottom
         AnchorSideRight.Control = SourcePanel
         AnchorSideRight.Side = asrBottom
-        Left = 112
+        Left = 119
         Height = 23
         Top = 1
         Width = 90
@@ -87,13 +87,13 @@ object MainForm: TMainForm
       Left = 8
       Height = 56
       Top = 36
-      Width = 194
+      Width = 203
       Align = alTop
       AutoSize = True
       BorderSpacing.Around = 8
       BevelOuter = bvNone
       ClientHeight = 56
-      ClientWidth = 194
+      ClientWidth = 203
       TabOrder = 1
       object LblSource: TLabel
         AnchorSideLeft.Control = SourcePanel
@@ -117,7 +117,7 @@ object MainForm: TMainForm
         Left = 0
         Height = 23
         Top = 21
-        Width = 194
+        Width = 203
         Anchors = [akTop, akLeft, akRight]
         ItemHeight = 15
         ItemIndex = 1
@@ -140,7 +140,7 @@ object MainForm: TMainForm
         Left = 0
         Height = 4
         Top = 52
-        Width = 194
+        Width = 203
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
         Shape = bsBottomLine
@@ -150,19 +150,19 @@ object MainForm: TMainForm
       Left = 0
       Height = 37
       Top = 546
-      Width = 210
+      Width = 219
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
       ClientHeight = 37
-      ClientWidth = 210
+      ClientWidth = 219
       ParentColor = False
       TabOrder = 2
       object BtnStart: TButton
         AnchorSideRight.Control = BtnStop
         AnchorSideBottom.Control = StartStopPanel
         AnchorSideBottom.Side = asrBottom
-        Left = 94
+        Left = 103
         Height = 25
         Top = 6
         Width = 50
@@ -180,7 +180,7 @@ object MainForm: TMainForm
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = BtnStart
         AnchorSideBottom.Side = asrBottom
-        Left = 152
+        Left = 161
         Height = 25
         Top = 6
         Width = 50
@@ -197,7 +197,7 @@ object MainForm: TMainForm
         Left = 0
         Height = 6
         Top = 0
-        Width = 210
+        Width = 219
         Anchors = [akLeft, akRight, akBottom]
         Shape = bsTopLine
       end
@@ -223,8 +223,8 @@ object MainForm: TMainForm
       Left = 0
       Height = 446
       Top = 100
-      Width = 210
-      PageIndex = 0
+      Width = 219
+      PageIndex = 2
       Align = alClient
       TabOrder = 3
       object RecorderPage: TPage
@@ -364,22 +364,22 @@ object MainForm: TMainForm
       object PlayerPage: TPage
         object PlayerPanel: TPanel
           Left = 8
-          Height = 422
+          Height = 430
           Top = 8
           Width = 194
           Align = alClient
           BorderSpacing.Around = 8
           BevelOuter = bvNone
-          ClientHeight = 422
+          ClientHeight = 430
           ClientWidth = 194
           TabOrder = 0
           object LblFile: TLabel
             AnchorSideLeft.Control = PlayerPanel
             AnchorSideTop.Control = PlayerPanel
             Left = 0
-            Height = 19
+            Height = 15
             Top = 0
-            Width = 32
+            Width = 19
             Caption = 'File'
             Font.Style = [fsBold]
             ParentColor = False
@@ -392,8 +392,8 @@ object MainForm: TMainForm
             AnchorSideRight.Control = PlayerPanel
             AnchorSideRight.Side = asrBottom
             Left = 0
-            Height = 29
-            Top = 23
+            Height = 23
+            Top = 19
             Width = 194
             OnAcceptFileName = EdFilenameAcceptFileName
             DialogOptions = [ofPathMustExist, ofFileMustExist, ofEnableSizing, ofViewDetail]
@@ -412,14 +412,14 @@ object MainForm: TMainForm
       object WaveGeneratorPage: TPage
         object WaveGeneratorPanel: TPanel
           Left = 8
-          Height = 422
+          Height = 430
           Top = 8
-          Width = 194
+          Width = 203
           Align = alClient
           BorderSpacing.Around = 8
           BevelOuter = bvNone
-          ClientHeight = 422
-          ClientWidth = 194
+          ClientHeight = 430
+          ClientWidth = 203
           TabOrder = 0
           object LblGeneratorSampleRate: TLabel
             AnchorSideLeft.Control = WaveGeneratorPanel
@@ -428,13 +428,12 @@ object MainForm: TMainForm
             AnchorSideBottom.Control = CbGeneratorSampleRate
             AnchorSideBottom.Side = asrBottom
             Left = 0
-            Height = 29
-            Top = 366
-            Width = 83
+            Height = 23
+            Top = 357
+            Width = 67
             Anchors = [akTop, akLeft, akBottom]
             BorderSpacing.Right = 8
             Caption = 'Sample rate'
-            Font.Height = 12
             Font.Style = [fsBold]
             Layout = tlCenter
             ParentColor = False
@@ -447,15 +446,15 @@ object MainForm: TMainForm
             AnchorSideTop.Side = asrBottom
             AnchorSideRight.Control = WaveGeneratorPanel
             AnchorSideRight.Side = asrBottom
-            Left = 91
-            Height = 29
-            Top = 366
-            Width = 103
+            Left = 75
+            Height = 23
+            Top = 357
+            Width = 128
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Top = 12
             BorderSpacing.Bottom = 8
             DropDownCount = 24
-            ItemHeight = 0
+            ItemHeight = 15
             OnSelect = CbGeneratorSampleRateSelect
             ParentFont = False
             Style = csDropDownList
@@ -465,15 +464,15 @@ object MainForm: TMainForm
             AnchorSideTop.Control = GbWaveForm
             AnchorSideTop.Side = asrBottom
             Left = 0
-            Height = 146
+            Height = 145
             Top = 60
-            Width = 194
+            Width = 203
             Anchors = [akTop, akLeft, akRight]
             AutoSize = True
             BorderSpacing.Top = 8
             Caption = 'Frequency'
             ClientHeight = 125
-            ClientWidth = 190
+            ClientWidth = 199
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 1
@@ -483,7 +482,7 @@ object MainForm: TMainForm
               AnchorSideTop.Control = FrequencyPanel
               AnchorSideTop.Side = asrBottom
               AnchorSideBottom.Side = asrBottom
-              Left = 59
+              Left = 63
               Height = 23
               Top = 94
               Width = 73
@@ -507,10 +506,10 @@ object MainForm: TMainForm
               AnchorSideRight.Side = asrBottom
               AnchorSideBottom.Control = EdFrequency
               AnchorSideBottom.Side = asrBottom
-              Left = 136
+              Left = 140
               Height = 23
               Top = 94
-              Width = 29
+              Width = 20
               Alignment = taRightJustify
               Anchors = [akTop, akLeft, akBottom]
               BorderSpacing.Left = 4
@@ -528,12 +527,12 @@ object MainForm: TMainForm
               Left = 0
               Height = 86
               Top = 0
-              Width = 190
+              Width = 199
               Anchors = [akTop, akLeft, akRight]
               AutoSize = True
               BevelOuter = bvNone
               ClientHeight = 86
-              ClientWidth = 190
+              ClientWidth = 199
               TabOrder = 1
               object PotFrequency: TuEKnob
                 AnchorSideLeft.Control = FrequencyPanel
@@ -542,7 +541,7 @@ object MainForm: TMainForm
                 Left = 0
                 Height = 86
                 Top = 0
-                Width = 92
+                Width = 96
                 Transparent = False
                 Debug = False
                 Max = 10
@@ -710,10 +709,10 @@ object MainForm: TMainForm
                 AnchorSideTop.Control = FrequencyPanel
                 AnchorSideRight.Control = FrequencyPanel
                 AnchorSideRight.Side = asrBottom
-                Left = 98
+                Left = 102
                 Height = 86
                 Top = 0
-                Width = 92
+                Width = 97
                 Transparent = False
                 Debug = False
                 MaxAngle = 2700
@@ -891,7 +890,7 @@ object MainForm: TMainForm
                 AnchorSideTop.Control = FrequencyPanel
                 AnchorSideBottom.Control = FrequencyPanel
                 AnchorSideBottom.Side = asrBottom
-                Left = 92
+                Left = 96
                 Height = 86
                 Top = 0
                 Width = 6
@@ -908,8 +907,9 @@ object MainForm: TMainForm
             Left = 0
             Height = 52
             Top = 0
-            Width = 194
+            Width = 203
             Anchors = [akTop, akLeft, akRight]
+            AutoSize = True
             Caption = 'Wave form'
             ChildSizing.LeftRightSpacing = 4
             ChildSizing.HorizontalSpacing = 4
@@ -917,20 +917,18 @@ object MainForm: TMainForm
             ChildSizing.EnlargeVertical = crsHomogenousChildResize
             ChildSizing.ShrinkHorizontal = crsHomogenousChildResize
             ChildSizing.ShrinkVertical = crsHomogenousChildResize
-            ChildSizing.Layout = cclTopToBottomThenLeftToRight
             ChildSizing.ControlsPerLine = 1
-            ClientHeight = 31
-            ClientWidth = 190
+            ClientHeight = 32
+            ClientWidth = 199
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 2
             object BtnSineWave: TSpeedButton
               AnchorSideBottom.Side = asrBottom
               Left = 4
-              Height = 23
+              Height = 24
               Top = 0
-              Width = 60
-              AutoSize = True
+              Width = 56
               BorderSpacing.Bottom = 8
               Caption = 'Sine'
               Down = True
@@ -969,11 +967,10 @@ object MainForm: TMainForm
             object BtnTriangWave: TSpeedButton
               AnchorSideLeft.Side = asrBottom
               AnchorSideBottom.Side = asrBottom
-              Left = 68
-              Height = 23
+              Left = 66
+              Height = 20
               Top = 0
-              Width = 50
-              AutoSize = True
+              Width = 39
               Caption = 'Tri.'
               Glyph.Data = {
                 36030000424D3603000000000000360000002800000010000000100000000100
@@ -1010,11 +1007,10 @@ object MainForm: TMainForm
             object BtnSquareWave: TSpeedButton
               AnchorSideRight.Side = asrBottom
               AnchorSideBottom.Side = asrBottom
-              Left = 122
-              Height = 23
+              Left = 118
+              Height = 20
               Top = 0
-              Width = 64
-              AutoSize = True
+              Width = 50
               Caption = 'Rect.'
               Glyph.Data = {
                 36030000424D3603000000000000360000002800000010000000100000000100
@@ -1056,15 +1052,15 @@ object MainForm: TMainForm
             AnchorSideRight.Control = WaveGeneratorPanel
             AnchorSideRight.Side = asrBottom
             Left = 0
-            Height = 66
-            Top = 214
-            Width = 194
+            Height = 62
+            Top = 213
+            Width = 203
             Anchors = [akTop, akLeft, akRight]
             AutoSize = True
             BorderSpacing.Top = 8
             Caption = 'Duty cycle'
-            ClientHeight = 45
-            ClientWidth = 190
+            ClientHeight = 42
+            ClientWidth = 199
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 3
@@ -1075,10 +1071,10 @@ object MainForm: TMainForm
               AnchorSideRight.Side = asrBottom
               AnchorSideBottom.Control = EdDutyCycle
               AnchorSideBottom.Side = asrBottom
-              Left = 173
-              Height = 29
-              Top = 8
-              Width = 15
+              Left = 187
+              Height = 23
+              Top = 11
+              Width = 10
               Alignment = taRightJustify
               Anchors = [akTop, akRight, akBottom]
               BorderSpacing.Left = 4
@@ -1095,7 +1091,7 @@ object MainForm: TMainForm
               Left = 0
               Height = 36
               Top = 4
-              Width = 123
+              Width = 137
               Frequency = 10
               Max = 100
               OnChange = TbDutyCycleChange
@@ -1109,9 +1105,9 @@ object MainForm: TMainForm
               AnchorSideTop.Control = TbDutyCycle
               AnchorSideTop.Side = asrCenter
               AnchorSideRight.Control = LblDutyCyclePerc
-              Left = 123
-              Height = 29
-              Top = 8
+              Left = 137
+              Height = 23
+              Top = 11
               Width = 46
               Alignment = taRightJustify
               Anchors = [akTop, akRight]
@@ -1129,15 +1125,15 @@ object MainForm: TMainForm
             AnchorSideRight.Control = WaveGeneratorPanel
             AnchorSideRight.Side = asrBottom
             Left = 0
-            Height = 66
-            Top = 288
-            Width = 194
+            Height = 62
+            Top = 283
+            Width = 203
             Anchors = [akTop, akLeft, akRight]
             AutoSize = True
             BorderSpacing.Top = 8
             Caption = 'Volume'
-            ClientHeight = 45
-            ClientWidth = 190
+            ClientHeight = 42
+            ClientWidth = 199
             Font.Style = [fsBold]
             ParentFont = False
             TabOrder = 4
@@ -1147,7 +1143,7 @@ object MainForm: TMainForm
               Left = 0
               Height = 36
               Top = 4
-              Width = 123
+              Width = 137
               Frequency = 10
               Max = 100
               OnChange = TbVolumeChange
@@ -1163,10 +1159,10 @@ object MainForm: TMainForm
               AnchorSideRight.Side = asrBottom
               AnchorSideBottom.Control = EdVolume
               AnchorSideBottom.Side = asrBottom
-              Left = 173
-              Height = 29
-              Top = 8
-              Width = 15
+              Left = 187
+              Height = 23
+              Top = 11
+              Width = 10
               Alignment = taRightJustify
               Anchors = [akTop, akRight, akBottom]
               BorderSpacing.Left = 4
@@ -1182,9 +1178,9 @@ object MainForm: TMainForm
               AnchorSideTop.Side = asrCenter
               AnchorSideRight.Control = LblVolPerc
               AnchorSideBottom.Side = asrBottom
-              Left = 123
-              Height = 29
-              Top = 8
+              Left = 137
+              Height = 23
+              Top = 11
               Width = 46
               Alignment = taRightJustify
               Anchors = [akTop, akRight]
@@ -1200,26 +1196,26 @@ object MainForm: TMainForm
     end
   end
   object MeasurementPanel: TPanel
-    Left = 215
+    Left = 224
     Height = 583
     Top = 0
-    Width = 725
+    Width = 716
     Align = alClient
     BevelOuter = bvNone
     Caption = 'MeasurementPanel'
     ClientHeight = 583
-    ClientWidth = 725
+    ClientWidth = 716
     TabOrder = 1
     object HeaderPanel1: TPanel
       Left = 0
       Height = 28
       Top = 0
-      Width = 725
+      Width = 716
       Align = alTop
       Alignment = taLeftJustify
       BevelOuter = bvNone
       ClientHeight = 28
-      ClientWidth = 725
+      ClientWidth = 716
       Color = clActiveBorder
       ParentColor = False
       TabOrder = 0
@@ -1244,7 +1240,7 @@ object MainForm: TMainForm
         Left = 0
         Height = 4
         Top = 24
-        Width = 725
+        Width = 716
         Align = alBottom
         Shape = bsBottomLine
       end
@@ -1253,7 +1249,7 @@ object MainForm: TMainForm
       Left = 0
       Height = 555
       Top = 28
-      Width = 725
+      Width = 716
       ActivePage = PgOscilloscope
       Align = alClient
       TabIndex = 0
@@ -1269,7 +1265,7 @@ object MainForm: TMainForm
     end
   end
   object InputSplitter: TSplitter
-    Left = 210
+    Left = 219
     Height = 583
     Top = 0
     Width = 5
