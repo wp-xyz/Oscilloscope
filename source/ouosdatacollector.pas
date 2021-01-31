@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, LCLType,
   uos_flat,
-  oGlobal, oDataCollector;
+  oDataCollector;
 
 type
 
@@ -52,7 +52,6 @@ type
   end;
 
 var
-  AData: TChannelDataArray;
   BData: array of single;
 
 implementation
@@ -144,56 +143,60 @@ begin
   //Result := 10.0;
 end;
 
+// ABufPtr points to beginning of pre-allocated buffer. ABufSize is the size
+// of the allocated buffer in bytes.
+// TOscilloscopeFrame assumes that the buffer is an array of SmallInt values
 function TuosDataCollector.GetWaveData(ABufPtr: Pointer; ABufSize: integer): integer;
 var
-  i, x: integer;
+  i, nBuf: integer;
   bufferwav: TDArFloat;
+  EndPtr: Pointer;
+  intValue: Integer;
 begin
-  Result := 0;
+  Result := -1;
 
-  bufferwav := uos_InputGetBuffer(FChannel, 0);
+  bufferwav := uos_InputGetBuffer(FChannel, 0);  // wp: seems to be correct length, but how can we be sure that this returns the amount needed for the buffer?
+  nBuf := Length(bufferwav);
 
-  setlength(AData, length(bufferwav) div FNumChannels);
-  x := 0;
-
-  for i := 0 to length(AData) - 1 do
+  EndPtr := ABufPtr + ABufSize;
+  i := 0;
+  while (ABufPtr < EndPtr) and (i < nBuf) do
   begin
-    AData[i][ciLeft]    := (round(bufferwav[x] * 32768));
-    if FNumChannels = 2 then
-      AData[i][ciRight] := (round(bufferwav[x + 1] * 32768));
-    if FNumChannels = 1 then
-      AData[i][ciRight] := (round(bufferwav[x] * 32768));
-    Inc(x, FNumChannels);
+    intValue := round(bufferwav[i] * 32768);
+    if intValue > 32767 then
+      intValue := 32767
+    else if intValue < -32768 then
+      intValue := -32768;
+    PSmallInt(ABufPtr)^ := SmallInt(intValue);
+    inc(ABufPtr, 2);
+    inc(i);
   end;
-  Result := 0;
+  Result := i * 2;
 end;
 
 function TuosDataCollector.Open(ASampleRate, ANumChannels: integer): Boolean;
 var
-  pafn, sffn, mpfn, ordir, opath: string;
+  binDir, pafn, sffn, mpfn, ordir, opath: string;
 begin
   Result := False;
 
-   {$IFDEF Windows}
-   // ordir  := '.\3rdParty\uos\';
-   // ordir := '.\';
-    ordir := AppendPathDelim(Application.Location);
-  {$else}
-   //  ordir := './3rdParty/uos/';
-    ordir := './';
-  {$ENDIF}
+  binDir := AppendPathDelim(Application.Location);
+ {$IFNDEF Windows}
+  //  ordir := './3rdParty/uos/';
+   ordir := './';
+ {$ENDIF}
 
-    {$IFDEF Windows}
-     {$if defined(cpu64)}
-    pafn := ordir + 'LibPortaudio-64.dll';
-    sffn := ordir + 'LibSndFile-64.dll';
-    mpfn := ordir + 'LibMpg123-64.dll';
-    {$else}
-    pafn := ordir + 'LibPortaudio-32.dll';
-    sffn := ordir + 'LibSndFile-32.dll';
-    mpfn := ordir + 'LibMpg123-32.dll';
-    {$endif}
-   {$ENDIF}
+ {$IFDEF Windows}
+  {$if defined(cpu64)}
+  pafn := binDir + 'LibPortaudio-64.dll';
+  sffn := binDir + 'LibSndFile-64.dll';
+  mpfn := binDir + 'LibMpg123-64.dll';
+  {$else}
+  pafn := binDir + 'LibPortaudio-32.dll';
+  sffn := binDir + 'LibSndFile-32.dll';
+  mpfn := binDir + 'LibMpg123-32.dll';
+  {$endif}
+ {$ENDIF}
 
   {$IFDEF Darwin}
    {$IFDEF CPU32}
@@ -211,23 +214,23 @@ begin
     {$ENDIF}
    {$ENDIF}
 
-    {$if defined(CPUAMD64) and defined(linux) }
-    pafn := ordir + 'lib/Linux/64bit/LibPortaudio-64.so';
-    sffn := ordir + 'lib/Linux/64bit/LibSndFile-64.so';
-    mpfn := ordir + 'lib/Linux/64bit/LibMpg123-64.so';
-   {$ENDIF}
+ {$if defined(CPUAMD64) and defined(linux) }
+  pafn := binDir + 'LibPortaudio-64.so';
+  sffn := binDir + 'LibSndFile-64.so';
+  mpfn := binDir + 'LibMpg123-64.so';
+ {$ENDIF}
 
-    {$if defined(cpu32) and defined(linux) and not defined(cpuarm)}
-    pafn := ordir + 'lib/Linux/32bit/LibPortaudio-32.so';
-    sffn := ordir + 'lib/Linux/32bit/LibSndFile-32.so';
-    mpfn := ordir + 'lib/Linux/32bit/LibMpg123-32.so';
-    {$ENDIF}
+ {$if defined(cpu32) and defined(linux) and not defined(cpuarm)}
+  pafn := binDir + 'LibPortaudio-32.so';
+  sffn := binDir + 'LibSndFile-32.so';
+  mpfn := binDir + 'LibMpg123-32.so';
+ {$ENDIF}
 
-    {$if defined(linux) and defined(cpuarm)}
-    pafn := ordir + 'lib/Linux/arm_raspberrypi/libportaudio-arm.so';
-    sffn := ordir + 'lib/Linux/arm_raspberrypi/libsndfile-arm.so';
-    mpfn := ordir + 'lib/Linux/arm_raspberrypi/libmpg123-arm.so';
-    {$ENDIF}
+ {$if defined(linux) and defined(cpuarm)}
+  pafn := ordir + 'lib/Linux/arm_raspberrypi/libportaudio-arm.so';
+  sffn := ordir + 'lib/Linux/arm_raspberrypi/libsndfile-arm.so';
+  mpfn := ordir + 'lib/Linux/arm_raspberrypi/libmpg123-arm.so';
+ {$ENDIF}
 
    {$if defined(linux) and defined(cpuaarch64)}
    pafn := ordir + 'lib/Linux/aarch64_raspberrypi/libportaudio_aarch64.so';
@@ -247,7 +250,8 @@ begin
    {$endif}
   {$ENDIF}
   
-  if uos_LoadLib(PChar(pafn), PChar(sffn), PChar(mpfn), nil, nil, nil) <> -1 then
+//  if uos_LoadLib(PChar(pafn), PChar(sffn), PChar(mpfn), nil, nil, nil) <> -1 then
+  if uos_LoadLib(PChar(pafn), nil, nil, nil, nil, nil) <> -1 then
   begin
     FSampleRate  := ASampleRate;
     FNumChannels := ANumChannels;

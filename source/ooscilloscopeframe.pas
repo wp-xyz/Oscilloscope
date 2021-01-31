@@ -8,8 +8,8 @@ uses
   Classes, SysUtils, FileUtil,
   Forms, Controls, ExtCtrls, StdCtrls, Spin, Buttons,
   TAGraph, TASeries, TACustomSource, TASources, TATransformations, TATools,
-  uESelector, uEKnob, ueled,
-  oGlobal, oBaseFrame, types;
+  uESelector, uEKnob,
+  oGlobal, oBaseFrame;
 
 type
 
@@ -71,8 +71,8 @@ implementation
 
 uses
   Math,
-  TAChartUtils, TAChartAxis, TACustomSeries, ouosDataCollector,
-  oUtils, oDataCollector, omain;
+  TAChartUtils, TAChartAxis, TACustomSeries,
+  oUtils, oDataCollector;
 
 
 { TOscilloscopeFrame }
@@ -379,7 +379,6 @@ begin
   // Get data
   n := FDataCollector.GetWaveData(@FData[0], Length(FData)*SizeOf(TChannelData));
   
-  if MainForm.CbAudioEngine.text = 'uos' then FData := AData;
    // prepare series
   LeftChannelChartSource.Reset;
   RightChannelChartSource.Reset;

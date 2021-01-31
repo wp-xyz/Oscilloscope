@@ -147,7 +147,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="10">
+    <Units Count="11">
       <Unit0>
         <Filename Value="Oscilloscope.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -209,6 +209,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="oWav"/>
       </Unit9>
+      <Unit10>
+        <Filename Value="ouosdatacollector.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ouosDataCollector"/>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
