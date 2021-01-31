@@ -116,11 +116,15 @@ var
   begin
     case AWaveForm of
       wfSine : y := Ampl*sin(phi);
-      wfTri  : if phi <= phiDC then
-                 y := 2*Ampl*phi/phiDC - Ampl else
+      wfTri  : if phi = 0 then
+                 y := Ampl
+               else if phi <= phiDC then
+                 y := 2*Ampl*phi/phiDC - Ampl
+               else
                  y := Ampl*(two_pi+phiDC-phi*2)/(two_pi-phiDC);
       wfRect : if phi <= phiDC then
-                 y := Ampl else
+                 y := Ampl
+               else
                  y := -Ampl;
     end;
     value := round(y*MAX_WAV);
@@ -143,7 +147,7 @@ begin
   if not (AChannel in [0..3]) then
     raise Exception.Create('Wav writer: 1 or 2 channels supported only.');
 
-  if (ADutyCycle <= 0.0) or (ADutyCycle >= 1.0) then
+  if (ADutyCycle < 0.0) or (ADutyCycle > 1.0) then
     raise Exception.Create('Wav writer: Duty cycle must be > 0 and < 1');
 
   if AChannel in [0, 3] then numch := 1 else numch := 2;
