@@ -250,8 +250,7 @@ begin
    {$endif}
   {$ENDIF}
   
-//  if uos_LoadLib(PChar(pafn), PChar(sffn), PChar(mpfn), nil, nil, nil) <> -1 then
-  if uos_LoadLib(PChar(pafn), nil, nil, nil, nil, nil) <> -1 then
+  if uos_LoadLib(PChar(pafn), PChar(sffn), PChar(mpfn), nil, nil, nil) <> -1 then
   begin
     FSampleRate  := ASampleRate;
     FNumChannels := ANumChannels;
