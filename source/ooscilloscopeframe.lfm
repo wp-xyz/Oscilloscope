@@ -1,72 +1,55 @@
 inherited OscilloscopeFrame: TOscilloscopeFrame
-  Height = 522
-  Width = 909
-  ClientHeight = 522
-  ClientWidth = 909
+  Height = 528
+  Width = 971
+  ClientHeight = 528
+  ClientWidth = 971
   DesignLeft = 265
   DesignTop = 185
   inherited ControlPanel: TPanel
-    Left = 645
-    Height = 514
+    Left = 728
+    Height = 520
+    Width = 239
     Anchors = [akRight]
-    ClientHeight = 514
+    ClientHeight = 520
+    ClientWidth = 239
     UseDockManager = False
-    OnClick = ControlPanelClick
     inherited GbLeftSensitivity: TGroupBox
+      Width = 105
+      ClientWidth = 101
       inherited LeftSensitityPanel: TPanel
-        Height = 97
-        ClientHeight = 97
+        Width = 101
+        ClientWidth = 101
         inherited SwLeftSensitivity: TuESelector
-          Height = 97
+          Width = 101
         end
       end
     end
     inherited GbRightSensitivity: TGroupBox
+      Left = 123
+      Width = 106
+      ClientWidth = 102
       inherited RightSensitivityPanel: TPanel
-        Height = 97
-        ClientHeight = 97
+        Width = 102
+        ClientWidth = 102
         inherited SwRightSensitivity: TuESelector
-          Height = 97
+          Width = 102
         end
       end
     end
+    inherited CenterBevel: TBevel
+      AnchorSideRight.Control = nil
+      Left = 115
+    end
     inherited CbLinkedSensitivities: TCheckBox
-      Left = 47
-      Height = 21
-      Top = 142
-      Width = 177
-      Anchors = []
-      AutoSize = False
+      Left = 60
     end
     inherited LEDLeftPanel: TPanel
-      Left = 84
-      Height = 18
-      Width = 38
-      ClientHeight = 18
-      ClientWidth = 38
+      Left = 71
       TabOrder = 5
-      inherited LEDLeft: TuELED
-        Left = 18
-      end
-      inherited CbLeftON: TCheckBox
-        Height = 18
-        Width = 18
-      end
     end
     inherited LEDRightPanel: TPanel
-      Left = 212
-      Height = 18
-      Width = 34
-      ClientHeight = 18
-      ClientWidth = 34
+      Left = 189
       TabOrder = 6
-      inherited LEDRight: TuELED
-        Left = 18
-      end
-      inherited CbRightON: TCheckBox
-        Height = 18
-        Width = 18
-      end
     end
     object GbTimeBase: TGroupBox[6]
       AnchorSideLeft.Control = GbLeftSensitivity
@@ -76,32 +59,34 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       AnchorSideRight.Side = asrBottom
       Left = 10
       Height = 116
-      Top = 173
-      Width = 116
-      Anchors = []
+      Top = 176
+      Width = 105
+      Anchors = [akLeft, akRight]
       BorderSpacing.Top = 32
       Caption = 'Time Base (ms/div)'
-      ClientHeight = 101
-      ClientWidth = 112
-      Font.Height = 10
+      ClientHeight = 96
+      ClientWidth = 101
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 3
       object TimeBasePanel: TPanel
         Left = 0
-        Height = 101
+        Height = 96
         Top = 0
-        Width = 112
+        Width = 101
         Align = alClient
         BevelOuter = bvNone
-        ClientHeight = 101
-        ClientWidth = 112
+        ClientHeight = 96
+        ClientWidth = 101
         TabOrder = 0
         object SwTimebase: TuESelector
+          AnchorSideLeft.Control = TimeBasePanel
+          AnchorSideRight.Control = TimeBasePanel
+          AnchorSideRight.Side = asrBottom
           Left = 0
           Height = 98
-          Top = 0
-          Width = 112
+          Top = -2
+          Width = 101
           Debug = False
           MaxAngle = 3150
           MinAngle = 450
@@ -270,7 +255,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
           ValuesFont.Height = -11
           ValuesFont.Name = 'Sans'
           OnChange = SwTimebaseChange
-          Anchors = []
+          Anchors = [akLeft, akRight]
         end
       end
     end
@@ -279,26 +264,24 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       AnchorSideTop.Control = GbTimeBase
       AnchorSideRight.Control = GbRightSensitivity
       AnchorSideRight.Side = asrBottom
-      Left = 134
+      Left = 123
       Height = 188
-      Top = 173
-      Width = 116
+      Top = 176
+      Width = 106
       Anchors = [akTop, akLeft, akRight]
       Caption = 'Trigger (%)'
-      ClientHeight = 173
-      ClientWidth = 112
-      Font.Height = 10
+      ClientHeight = 168
+      ClientWidth = 102
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 4
-      OnClick = GbTriggerClick
       object EdTriggerLevel: TFloatSpinEdit
         AnchorSideLeft.Control = TriggerPanel
         AnchorSideLeft.Side = asrCenter
         AnchorSideTop.Control = TriggerPanel
         AnchorSideTop.Side = asrBottom
-        Left = 23
-        Height = 29
+        Left = 18
+        Height = 23
         Top = 98
         Width = 66
         Alignment = taRightJustify
@@ -315,8 +298,8 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 8
         Height = 18
         Hint = 'Left channel'
-        Top = 130
-        Width = 46
+        Top = 126
+        Width = 41
         AllowAllUp = True
         Anchors = [akLeft, akRight]
         BorderSpacing.Left = 8
@@ -325,7 +308,6 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Caption = 'L'
         Down = True
         GroupIndex = 1
-        OnClick = BtnTriggerLeftClick
       end
       object BtnTriggerRight: TSpeedButton
         AnchorSideLeft.Control = Bevel1
@@ -333,11 +315,11 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         AnchorSideTop.Control = BtnTriggerLeft
         AnchorSideRight.Control = GbTrigger
         AnchorSideRight.Side = asrBottom
-        Left = 58
+        Left = 53
         Height = 18
         Hint = 'Right channel'
-        Top = 130
-        Width = 46
+        Top = 126
+        Width = 41
         AllowAllUp = True
         Anchors = [akLeft, akRight]
         BorderSpacing.Right = 8
@@ -353,8 +335,8 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 8
         Height = 18
         Hint = 'Ascending signal'
-        Top = 150
-        Width = 46
+        Top = 145
+        Width = 41
         AllowAllUp = True
         Anchors = [akLeft, akRight]
         BorderSpacing.Left = 8
@@ -371,11 +353,11 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = GbTrigger
         AnchorSideBottom.Side = asrBottom
-        Left = 58
+        Left = 53
         Height = 18
         Hint = 'Descending signal'
-        Top = 150
-        Width = 46
+        Top = 145
+        Width = 41
         AllowAllUp = True
         Anchors = [akLeft, akRight]
         BorderSpacing.Right = 8
@@ -386,7 +368,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       object Bevel1: TBevel
         AnchorSideLeft.Control = GbTrigger
         AnchorSideLeft.Side = asrCenter
-        Left = 54
+        Left = 49
         Height = 46
         Top = 120
         Width = 4
@@ -400,17 +382,21 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Left = 0
         Height = 98
         Top = 0
-        Width = 112
+        Width = 102
         Anchors = [akTop, akLeft, akRight]
         BevelOuter = bvNone
         ClientHeight = 98
-        ClientWidth = 112
+        ClientWidth = 102
         TabOrder = 1
         object PotTriggerLevel: TuEKnob
+          AnchorSideLeft.Control = TriggerPanel
+          AnchorSideTop.Control = TriggerPanel
+          AnchorSideRight.Control = TriggerPanel
+          AnchorSideRight.Side = asrBottom
           Left = 0
           Height = 98
           Top = 0
-          Width = 112
+          Width = 102
           Debug = False
           Max = 100
           MaxAngle = 3150
@@ -569,25 +555,29 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
           ValuesFont.Height = -11
           ValuesFont.Name = 'Sans'
           OnChange = PotTriggerLevelChange
-          Anchors = []
+          Anchors = [akTop, akLeft, akRight]
         end
       end
     end
     object GbInfo: TGroupBox[8]
       AnchorSideLeft.Control = ControlPanel
-      AnchorSideRight.Control = GbTimeBase
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = GbTrigger
       AnchorSideRight.Side = asrBottom
-      AnchorSideBottom.Control = GbTrigger
+      AnchorSideBottom.Control = ControlPanel
       AnchorSideBottom.Side = asrBottom
       Left = 10
-      Height = 120
-      Top = 378
-      Width = 240
-      Anchors = []
+      Height = 81
+      Top = 429
+      Width = 219
+      Anchors = [akLeft, akRight, akBottom]
+      AutoSize = True
       BorderSpacing.Left = 8
+      BorderSpacing.Top = 12
+      BorderSpacing.Bottom = 8
       Caption = 'Info'
-      ClientHeight = 99
-      ClientWidth = 236
+      ClientHeight = 61
+      ClientWidth = 215
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 7
@@ -595,63 +585,48 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
       object TxtInfo: TLabel
         AnchorSideLeft.Control = GbInfo
         AnchorSideTop.Control = GbInfo
+        AnchorSideRight.Control = GbInfo
+        AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Side = asrBottom
-        Left = 8
-        Height = 38
-        Top = 8
-        Width = 216
-        Anchors = []
-        AutoSize = False
+        Left = 12
+        Height = 30
+        Top = 0
+        Width = 203
+        Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Left = 12
         BorderSpacing.Bottom = 8
         Caption = 'Time'#13#10'Bytes'
         ParentColor = False
         ParentFont = False
-        OnClick = TxtInfoClick
       end
       object TxtFrequency: TLabel
-        Left = 8
-        Height = 43
-        Top = 48
-        Width = 218
-        Anchors = []
-        AutoSize = False
+        AnchorSideLeft.Control = TxtInfo
+        AnchorSideTop.Control = TxtInfo
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = GbInfo
+        AnchorSideRight.Side = asrBottom
+        Left = 12
+        Height = 15
+        Top = 38
+        Width = 195
+        Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Right = 8
+        BorderSpacing.Bottom = 8
         Caption = 'TxtFrequency'
         Layout = tlCenter
         ParentColor = False
         ParentFont = False
-        OnClick = TxtFrequencyClick
       end
-    end
-    object CbShowSeriesPoints: TCheckBox[9]
-      AnchorSideLeft.Control = Panel2
-      AnchorSideTop.Control = Panel2
-      AnchorSideBottom.Control = Panel2
-      AnchorSideBottom.Side = asrBottom
-      Left = 14
-      Height = 40
-      Top = 315
-      Width = 112
-      Anchors = []
-      AutoSize = False
-      BorderSpacing.Left = 8
-      BorderSpacing.Top = 4
-      BorderSpacing.Bottom = 4
-      Caption = 'Show lines'#10'+ symbols'
-      OnChange = CbShowSeriesPointsChange
-      ParentFont = False
-      TabOrder = 8
     end
   end
   inherited Panel1: TPanel
-    Height = 522
-    Width = 641
-    ClientHeight = 522
-    ClientWidth = 641
+    Height = 528
+    Width = 719
+    ClientHeight = 528
+    ClientWidth = 719
     inherited Chart: TChart
-      Height = 521
-      Width = 641
+      Height = 500
+      Width = 719
       AxisList = <      
         item
           Intervals.Count = 10
@@ -726,28 +701,59 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
     end
     object Panel2: TPanel[1]
       Left = 0
-      Height = 1
-      Top = 521
-      Width = 641
+      Height = 28
+      Top = 500
+      Width = 719
       Align = alBottom
       AutoSize = True
       BevelOuter = bvNone
+      ClientHeight = 28
+      ClientWidth = 719
       TabOrder = 1
+      object CbShowSeriesPoints: TCheckBox
+        AnchorSideLeft.Control = Panel2
+        AnchorSideTop.Control = Panel2
+        AnchorSideTop.Side = asrCenter
+        AnchorSideBottom.Side = asrBottom
+        Left = 8
+        Height = 19
+        Top = 5
+        Width = 146
+        BorderSpacing.Left = 8
+        BorderSpacing.Top = 4
+        BorderSpacing.Bottom = 4
+        Caption = 'Show lines and symbols'
+        OnChange = CbShowSeriesPointsChange
+        TabOrder = 0
+      end
     end
   end
-  inherited LeftChannelChartSource: TUserDefinedChartSource
+  object Splitter1: TSplitter[2]
+    Left = 719
+    Height = 528
+    Top = 0
+    Width = 5
+    Align = alRight
+    ResizeAnchor = akRight
+    ResizeStyle = rsPattern
+  end
+  inherited LeftChannelChartSource: TUserDefinedChartSource[3]
     OnGetChartDataItem = LeftChannelChartSourceGetChartDataItem
     Left = 80
     Top = 64
   end
-  inherited RightChannelChartSource: TUserDefinedChartSource
+  inherited LeftAxisTransformations: TChartAxisTransformations[4]
+  end
+  inherited RightChannelChartSource: TUserDefinedChartSource[5]
     OnGetChartDataItem = RightChannelChartSourceGetChartDataItem
   end
-  inherited Timer: TTimer
+  inherited RightAxisTransformations: TChartAxisTransformations[6]
+  end
+  inherited Timer: TTimer[7]
     OnTimer = TimerEventHandler
     Top = 248
   end
-  inherited ChartToolset: TChartToolset
+  inherited ChartToolset: TChartToolset[8]
     Left = 192
     Top = 40
     inherited DataPointCrosshairTool: TDataPointCrosshairTool

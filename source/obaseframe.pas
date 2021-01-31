@@ -80,6 +80,8 @@ type
     procedure Activate; virtual;
     procedure Deactivate; virtual;
 
+    procedure AutoSizeControls; virtual;
+
     procedure SetDataCollector(AValue: TDataCollector);
     procedure SetSampleRate(AValue: Integer);
 
@@ -124,6 +126,11 @@ end;
 procedure TBaseFrame.Activate;
 begin
   ParamsToControls;
+end;
+
+procedure TBaseFrame.AutoSizeControls;
+begin
+  // to be overridden by ancestors if needed
 end;
 
 procedure TBaseFrame.CbLeftONClick(Sender: TObject);
@@ -220,19 +227,19 @@ end;
 
 procedure TBaseFrame.Pause;
 begin
-  if DataCollector.Running then
+  if FDataCollector.Running then
   begin
     Timer.Enabled := false;
-    DataCollector.Pause;
+    FDataCollector.Pause;
   end;
 end;
 
 procedure TBaseFrame.Resume;
 begin
-  if DataCollector.Paused then
+  if FDataCollector.Paused then
   begin
     Timer.Enabled := true;
-    DataCollector.Resume;
+    FDataCollector.Resume;
   end;
 end;
 
@@ -277,7 +284,7 @@ function TBaseFrame.StartPlayback(const AFileName: String): Boolean;
 begin
   Result := false;
 
-  if DataCollector.Running then
+  if FDataCollector.Running then
     exit;
 
   if (AFilename = '') then
@@ -289,10 +296,10 @@ begin
     exit;
   end;
 
-  if DataCollector.StartPlayback(AFileName) then
+  if FDataCollector.StartPlayback(AFileName) then
   begin
     
-   FSampleRate := DataCollector.GetSampleRate;
+   FSampleRate := FDataCollector.GetSampleRate;
    if Assigned(FOnBeginPlayback) then
       FOnBeginPlayback(self);
     SetupTimebase;
@@ -302,11 +309,8 @@ begin
   end else begin
     Timer.Enabled := false;
     FMode := prmNone;
-    MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
-  
+    MessageDlg(FDataCollector.ErrMsg, mtError, [mbOK], 0);
   end;
-  
-  
 end;
 
 function TBaseFrame.StartPlayback(AMemory: Pointer; ALength: DWord;
@@ -314,15 +318,15 @@ function TBaseFrame.StartPlayback(AMemory: Pointer; ALength: DWord;
 begin
   Result := false;
 
-  if DataCollector.Running then
+  if FDataCollector.Running then
     exit;
 
   if (AMemory = nil) then
     exit;
 
-  if DataCollector.StartPlayback(AMemory, ALength, ALoop) then
+  if FDataCollector.StartPlayback(AMemory, ALength, ALoop) then
   begin
-    FSampleRate := DataCollector.GetSampleRate;
+    FSampleRate := FDataCollector.GetSampleRate;
     if Assigned(FOnBeginPlayback) then
       FOnBeginPlayback(self);
     SetupTimebase;
@@ -332,7 +336,7 @@ begin
   end else begin
     Timer.Enabled := false;
     FMode := prmNone;
-    MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
+    MessageDlg(FDataCollector.ErrMsg, mtError, [mbOK], 0);
   end;
 end;
 
@@ -340,10 +344,10 @@ function TBaseFrame.StartRecording(ASampleRate: Integer): Boolean;
 begin
   Result := false;
 
-  if DataCollector.Running then
+  if FDataCollector.Running then
     exit;
 
-  if DataCollector.StartRecording(ASampleRate) then begin
+  if FDataCollector.StartRecording(ASampleRate) then begin
     FSampleRate := ASampleRate;
     {
     if Assigned(FOnBeginRecording) then
@@ -357,7 +361,7 @@ begin
   begin
     Timer.Enabled := false;
     FMode := prmNone;
-    MessageDlg(DataCollector.ErrMsg, mtError, [mbOk], 0);
+    MessageDlg(FDataCollector.ErrMsg, mtError, [mbOk], 0);
   end;
 end;
 
@@ -365,7 +369,7 @@ procedure TBaseFrame.Stop;
 begin
   FMode := prmNone;
   Timer.Enabled := false;
-  DataCollector.Stop;
+  FDataCollector.Stop;
   if Assigned(FOnEndPlayback) then
     FOnEndPlayback(self);
 end;

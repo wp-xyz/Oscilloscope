@@ -6,9 +6,10 @@ object MainForm: TMainForm
   Caption = 'Oscilloscope'
   ClientHeight = 583
   ClientWidth = 940
+  OnActivate = FormActivate
   OnCreate = FormCreate
   OnDestroy = FormDestroy
-  LCLVersion = '2.0.10.0'
+  LCLVersion = '2.1.0.0'
   object InputPanel: TPanel
     Left = 0
     Height = 583
@@ -34,15 +35,14 @@ object MainForm: TMainForm
       Color = clInactiveBorder
       ParentColor = False
       TabOrder = 0
-      OnClick = HeaderPanelClick
       object Label1: TLabel
         AnchorSideLeft.Control = HeaderPanel
         AnchorSideTop.Control = HeaderPanel
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 5
-        Width = 77
+        Height = 21
+        Top = 4
+        Width = 67
         BorderSpacing.Left = 8
         Caption = 'Audio lib'
         Font.Color = clWindowText
@@ -67,12 +67,11 @@ object MainForm: TMainForm
         AnchorSideRight.Control = SourcePanel
         AnchorSideRight.Side = asrBottom
         Left = 112
-        Height = 25
-        Top = 0
+        Height = 23
+        Top = 1
         Width = 90
         Anchors = []
-        ItemHeight = 0
-        ItemIndex = 0
+        ItemHeight = 15
         Items.Strings = (
           'Bass'
           'uos'
@@ -81,29 +80,28 @@ object MainForm: TMainForm
         OnSelect = CbSourceSelect
         Style = csDropDownList
         TabOrder = 0
-        Text = 'Bass'
       end
     end
     object SourcePanel: TPanel
       AnchorSideTop.Control = HeaderPanel
       Left = 8
-      Height = 62
+      Height = 56
       Top = 36
       Width = 194
       Align = alTop
       AutoSize = True
       BorderSpacing.Around = 8
       BevelOuter = bvNone
-      ClientHeight = 62
+      ClientHeight = 56
       ClientWidth = 194
       TabOrder = 1
       object LblSource: TLabel
         AnchorSideLeft.Control = SourcePanel
         AnchorSideTop.Control = SourcePanel
         Left = 0
-        Height = 19
+        Height = 15
         Top = 0
-        Width = 113
+        Width = 70
         BorderSpacing.Bottom = 6
         Caption = 'Input source'
         Font.Style = [fsBold]
@@ -117,11 +115,11 @@ object MainForm: TMainForm
         AnchorSideRight.Control = SourcePanel
         AnchorSideRight.Side = asrBottom
         Left = 0
-        Height = 25
-        Top = 25
+        Height = 23
+        Top = 21
         Width = 194
         Anchors = [akTop, akLeft, akRight]
-        ItemHeight = 0
+        ItemHeight = 15
         ItemIndex = 1
         Items.Strings = (
           'Recorder'
@@ -141,7 +139,7 @@ object MainForm: TMainForm
         AnchorSideRight.Side = asrBottom
         Left = 0
         Height = 4
-        Top = 58
+        Top = 52
         Width = 194
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -150,12 +148,13 @@ object MainForm: TMainForm
     end
     object StartStopPanel: TPanel
       Left = 0
-      Height = 39
-      Top = 544
+      Height = 37
+      Top = 546
       Width = 210
       Align = alBottom
+      AutoSize = True
       BevelOuter = bvNone
-      ClientHeight = 39
+      ClientHeight = 37
       ClientWidth = 210
       ParentColor = False
       TabOrder = 2
@@ -163,11 +162,13 @@ object MainForm: TMainForm
         AnchorSideRight.Control = BtnStop
         AnchorSideBottom.Control = StartStopPanel
         AnchorSideBottom.Side = asrBottom
-        Left = 40
+        Left = 94
         Height = 25
-        Top = 8
-        Width = 90
+        Top = 6
+        Width = 50
         Anchors = [akRight, akBottom]
+        AutoSize = True
+        BorderSpacing.Left = 8
         BorderSpacing.Right = 8
         BorderSpacing.Bottom = 6
         Caption = 'Start'
@@ -179,11 +180,12 @@ object MainForm: TMainForm
         AnchorSideRight.Side = asrBottom
         AnchorSideBottom.Control = BtnStart
         AnchorSideBottom.Side = asrBottom
-        Left = 138
+        Left = 152
         Height = 25
-        Top = 8
-        Width = 64
+        Top = 6
+        Width = 50
         Anchors = [akRight, akBottom]
+        AutoSize = True
         BorderSpacing.Right = 8
         Caption = 'Stop'
         Enabled = False
@@ -191,31 +193,36 @@ object MainForm: TMainForm
         TabOrder = 1
       end
       object Bevel2: TBevel
+        AnchorSideBottom.Control = BtnStart
         Left = 0
-        Height = 4
+        Height = 6
         Top = 0
         Width = 210
-        Align = alTop
+        Anchors = [akLeft, akRight, akBottom]
         Shape = bsTopLine
       end
       object RunLED: TuELED
-        Left = 7
+        AnchorSideLeft.Control = StartStopPanel
+        AnchorSideTop.Control = BtnStart
+        AnchorSideTop.Side = asrCenter
+        Left = 8
         Height = 25
-        Top = 8
+        Top = 6
         Width = 25
         Debug = False
         Active = False
         LedType = ledSquare
         Bright = True
         Reflection = True
+        BorderSpacing.Left = 8
         Color = clLime
         ParentColor = False
       end
     end
     object InputNotebook: TNotebook
       Left = 0
-      Height = 438
-      Top = 106
+      Height = 446
+      Top = 100
       Width = 210
       PageIndex = 0
       Align = alClient
@@ -223,13 +230,13 @@ object MainForm: TMainForm
       object RecorderPage: TPage
         object RecorderPanel: TPanel
           Left = 8
-          Height = 422
+          Height = 430
           Top = 8
           Width = 194
           Align = alClient
           BorderSpacing.Around = 8
           BevelOuter = bvNone
-          ClientHeight = 422
+          ClientHeight = 430
           ClientWidth = 194
           TabOrder = 0
           Visible = False
@@ -237,9 +244,9 @@ object MainForm: TMainForm
             AnchorSideLeft.Control = RecorderPanel
             AnchorSideTop.Control = RecorderPanel
             Left = 0
-            Height = 19
+            Height = 15
             Top = 0
-            Width = 110
+            Width = 70
             Caption = 'Input device'
             Font.Style = [fsBold]
             ParentColor = False
@@ -249,10 +256,10 @@ object MainForm: TMainForm
             AnchorSideTop.Control = LblInputDevice
             AnchorSideRight.Control = RecorderPanel
             AnchorSideRight.Side = asrBottom
-            Left = 114
-            Height = 19
+            Left = 140
+            Height = 15
             Top = 0
-            Width = 80
+            Width = 54
             Anchors = [akTop, akRight]
             Caption = 'undefined'
             ParentColor = False
@@ -264,12 +271,12 @@ object MainForm: TMainForm
             AnchorSideRight.Control = RecorderPanel
             AnchorSideRight.Side = asrBottom
             Left = 0
-            Height = 29
-            Top = 23
+            Height = 23
+            Top = 19
             Width = 194
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Top = 4
-            ItemHeight = 0
+            ItemHeight = 15
             Style = csDropDownList
             TabOrder = 0
           end
@@ -278,9 +285,9 @@ object MainForm: TMainForm
             AnchorSideTop.Control = CbInputDevice
             AnchorSideTop.Side = asrBottom
             Left = 0
-            Height = 19
-            Top = 62
-            Width = 95
+            Height = 15
+            Top = 52
+            Width = 58
             BorderSpacing.Top = 10
             Caption = 'Sensitivity'
             Font.Style = [fsBold]
@@ -295,7 +302,7 @@ object MainForm: TMainForm
             AnchorSideRight.Side = asrBottom
             Left = 0
             Height = 36
-            Top = 85
+            Top = 71
             Width = 194
             Frequency = 10
             Max = 100
@@ -310,8 +317,8 @@ object MainForm: TMainForm
             AnchorSideRight.Control = RecorderPanel
             AnchorSideRight.Side = asrBottom
             Left = 128
-            Height = 19
-            Top = 62
+            Height = 15
+            Top = 52
             Width = 66
             Alignment = taRightJustify
             Anchors = [akTop, akLeft, akRight]
@@ -326,14 +333,14 @@ object MainForm: TMainForm
             AnchorSideRight.Side = asrBottom
             AnchorSideBottom.Control = RecorderPanel
             Left = 0
-            Height = 1
-            Top = 152
+            Height = 23
+            Top = 134
             Width = 194
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Top = 4
             BorderSpacing.Bottom = 8
             DropDownCount = 24
-            ItemHeight = 0
+            ItemHeight = 15
             ParentFont = False
             Style = csDropDownList
             TabOrder = 2
@@ -343,9 +350,9 @@ object MainForm: TMainForm
             AnchorSideTop.Control = TbRecordingLevel
             AnchorSideTop.Side = asrBottom
             Left = 0
-            Height = 19
-            Top = 129
-            Width = 111
+            Height = 15
+            Top = 115
+            Width = 67
             BorderSpacing.Top = 8
             Caption = 'Sample rate'
             Font.Style = [fsBold]
@@ -1221,9 +1228,9 @@ object MainForm: TMainForm
         AnchorSideTop.Control = HeaderPanel1
         AnchorSideTop.Side = asrCenter
         Left = 8
-        Height = 19
-        Top = 5
-        Width = 125
+        Height = 21
+        Top = 4
+        Width = 102
         BorderSpacing.Left = 8
         Caption = 'Measurement'
         Font.Color = clWindowText
@@ -1268,5 +1275,6 @@ object MainForm: TMainForm
     Width = 5
     Color = clNone
     ParentColor = False
+    ResizeStyle = rsPattern
   end
 end

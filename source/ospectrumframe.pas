@@ -64,8 +64,8 @@ implementation
 
 uses
   Math, StrUtils,
-  TAChartUtils,ouosDataCollector, omain,
-  oUtils;
+  TAChartUtils,
+  ouosDataCollector, omain, oUtils;
 
 constructor TSpectrumFrame.Create(AOwner: TComponent);
 begin
@@ -89,7 +89,7 @@ begin
   inherited;
   CbLogarithmic.Checked := LogFrequencyAxis;
   SetupTimebase;
-  Timer.Enabled := FDataCollector.Running;
+  Timer.Enabled := Assigned(FDataCollector) and FDataCollector.Running;
 end;
 
 procedure TSpectrumFrame.CbLogarithmicChange(Sender: TObject);
@@ -275,7 +275,7 @@ begin
 
   if FSampleRate = 0 then
   begin
-    if FDataCollector.Running then
+    if Assigned(FDataCollector) and FDataCollector.Running then
       FSampleRate := FDataCollector.SampleRate
     else
       exit;
@@ -285,7 +285,8 @@ begin
   n := GetNumSamples;                // sample rate = n / t, samples per second
   t := n / FSampleRate * 1000;       // *1000 to convert sec to ms
 
-  FDataCollector.SampleRate := FSampleRate;
+  if Assigned(FDataCollector) then
+    FDataCollector.SampleRate := FSampleRate;
   TxtSamplingPeriod.Caption := Format('%.0fms', [t]);
   bufsize := n div 2 * ch * SizeOf(Single);
   SetLength(FData, bufsize);

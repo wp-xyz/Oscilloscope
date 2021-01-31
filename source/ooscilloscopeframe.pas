@@ -26,6 +26,7 @@ type
     GbInfo: TGroupBox;
     GbTimeBase: TGroupBox;
     GbTrigger: TGroupBox;
+    Splitter1: TSplitter;
     TriggerPanel: TPanel;
     TimeBasePanel: TPanel;
     Panel2: TPanel;
@@ -33,12 +34,9 @@ type
     PotTriggerLevel: TuEKnob;
     TxtFrequency: TLabel;
     TxtInfo: TLabel;
-    procedure BtnTriggerLeftClick(Sender: TObject);
     procedure CbShowSeriesPointsChange(Sender: TObject);
-    procedure ControlPanelClick(Sender: TObject);
     procedure DataPointCrosshairToolDraw(ASender: TDataPointDrawTool);
     procedure EdTriggerLevelChange(Sender: TObject);
-    procedure GbTriggerClick(Sender: TObject);
     procedure LeftChannelChartSourceGetChartDataItem(ASource: TUserDefinedChartSource;
       AIndex: Integer; var AItem: TChartDataItem);
     procedure PotTriggerLevelChange(Sender: TObject);
@@ -46,8 +44,6 @@ type
       AIndex: Integer; var AItem: TChartDataItem);
     procedure SwTimebaseChange(Sender: TObject);
     procedure TimerEventHandler(Sender: TObject);
-    procedure TxtFrequencyClick(Sender: TObject);
-    procedure TxtInfoClick(Sender: TObject);
   private
     FTriggerLevelLock: Integer;
     FTriggerIndex: Integer;
@@ -66,6 +62,7 @@ type
     constructor Create(AOwner: TComponent); override;
     procedure Activate; override;
     procedure Deactivate; override;
+    procedure AutoSizeControls; override;
   end;
 
 implementation
@@ -95,7 +92,26 @@ begin
   inherited;
   CbShowSeriesPoints.Checked := ShowLinesAndSymbols;
   SetupTimebase;
-  Timer.Enabled := FDataCollector.Running;
+  Timer.Enabled := Assigned(FDataCollector) and FDataCollector.Running;
+end;
+
+procedure TOscilloscopeFrame.AutoSizeControls;
+var
+  w: Integer;
+  cnv: TControlCanvas;
+begin
+  if not HandleAllocated then exit;
+
+  cnv := TControlCanvas.Create;
+  try
+    cnv.Control := GbTimeBase;
+    cnv.Font.Assign(GbTimeBase.Font);
+    w := cnv.TextWidth(GbTimeBase.Caption);
+  finally
+    cnv.Free;
+  end;
+
+  ControlPanel.Constraints.MinWidth := (w + Scale96ToFont(32)) * 2 + CenterBevel.Width;
 end;
 
 function TOscilloscopeFrame.CalcFrequency(AChannelIndex: TChannelIndex): Double;
@@ -155,16 +171,6 @@ begin
   RightChannelSeries.ShowPoints := ShowLinesAndSymbols;
 end;
 
-procedure TOscilloscopeFrame.BtnTriggerLeftClick(Sender: TObject);
-begin
-
-end;
-
-procedure TOscilloscopeFrame.ControlPanelClick(Sender: TObject);
-begin
-
-end;
-
 procedure TOscilloscopeFrame.DataPointCrosshairToolDraw(
   ASender: TDataPointDrawTool);
 var
@@ -199,11 +205,6 @@ begin
   inc(FTriggerLevelLock);
   PotTriggerLevel.Position := EdTriggerLevel.Value;
   dec(FTriggerLevelLock);
-end;
-
-procedure TOscilloscopeFrame.GbTriggerClick(Sender: TObject);
-begin
-
 end;
 
 procedure TOscilloscopeFrame.FindTriggerIndex(AChannelIndex: TChannelIndex;
@@ -250,7 +251,7 @@ end;
 
 function TOscilloscopeFrame.IndexToMilliseconds(AIndex: Double): Double;
 begin
-  Result := AIndex * 1000.0 / FSampleRate * DataCollector.NumChannels;
+  Result := AIndex * 1000.0 / FSampleRate * FDataCollector.NumChannels;
 end;
 
 procedure TOscilloscopeFrame.LeftChannelChartSourceGetChartDataItem(
@@ -327,7 +328,7 @@ var
 begin
   if FSampleRate = 0 then
   begin
-    if DataCollector.Running then
+    if Assigned(FDataCollector) and FDataCollector.Running then
       FSampleRate := FDataCollector.SampleRate
     else
       exit;
@@ -410,8 +411,8 @@ begin
     TxtInfo.Caption := Format(
       'Time: %s'#13+
       'Bytes: %.0n', [
-      FormatDateTime('nn:ss.zzz', DataCollector.GetRunningTime / (24*60*60)),
-      DataCollector.GetPlayedBytes*1.0
+      FormatDateTime('nn:ss.zzz', FDataCollector.GetRunningTime / (24*60*60)),
+      FDataCollector.GetPlayedBytes*1.0
     ]);
     if not GbInfo.Visible then GbInfo.Show;
   end;
@@ -419,16 +420,6 @@ begin
   // Notify main form of received data
   if Assigned(OnDataReceived) then
     OnDataReceived(self);
-end;
-
-procedure TOscilloscopeFrame.TxtFrequencyClick(Sender: TObject);
-begin
-
-end;
-
-procedure TOscilloscopeFrame.TxtInfoClick(Sender: TObject);
-begin
-
 end;
 
 end.

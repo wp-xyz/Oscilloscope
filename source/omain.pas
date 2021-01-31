@@ -90,10 +90,9 @@ type
     procedure EdFrequencyChange(Sender: TObject);
     procedure EdVolumeChange(Sender: TObject);
 
+    procedure FormActivate(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure HeaderPanelClick(Sender: TObject);
-
     procedure PageControlChange(Sender: TObject);
     procedure PageControlChanging(Sender: TObject; var AllowChange: Boolean);
     procedure PotFrequencyChange(Sender: TObject);
@@ -118,6 +117,7 @@ type
     procedure PlaybackEndHandler(Sender: TObject);
     procedure PopulateFrequencies;
     procedure PopulateSampleRates(ACombo: TCombobox);
+    procedure SelectAudioEngine(AudioEngineName: String);
     procedure UpdateCaption;
     procedure UpdateFrequency;
     procedure UpdateInputInfo;
@@ -222,28 +222,7 @@ end;
 
 procedure TMainForm.CbAudioEngineChange(Sender: TObject);
 begin
-  DataCollector.Close;
-  DataCollector.Free;
-  FGeneratorStream.Free;
-  
-  sleep(100);  
- 
-  if CbAudioEngine.text = 'Bass' then
-  begin
-  DataCollector := TBassDataCollector.Create(Handle);
-  if not DataCollector.Open(44100, 2) then
-    MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
-  end;
-  if CbAudioEngine.text = 'uos' then 
-  begin
-  DataCollector := TuosDataCollector.Create(Handle);
-  if not DataCollector.Open(44100, 2) then 
-   MessageDlg('Some libraries did not load', mtError, [mbOK], 0);
-  end;
-  
-  
-  FGeneratorStream := TMemoryStream.Create;
-  
+  SelectAudioEngine(CbAudioEngine.Text);
 end;
 
 procedure TMainForm.CbGeneratorSampleRateSelect(Sender: TObject);
@@ -368,18 +347,30 @@ begin
   dec(FVolumeLock);
 end;
 
+procedure TMainForm.FormActivate(Sender: TObject);
+var
+  w: Integer;
+begin
+  w := MaxValue([BtnStart.Width, BtnStop.Width]);
+  BtnStart.Width := w;
+  BtnStop.Width := w;
+
+  InputPanel.Constraints.MinWidth := RunLED.Width + BtnStart.Width * 2 + 4* BtnStart.BorderSpacing.Left;
+
+  FFrames[0].AutoSizeControls;
+end;
+
 procedure TMainForm.FormCreate(Sender: TObject);
 var
   ci: TChannelIndex;
 begin
-
+  (*
    DataCollector := TBassDataCollector.Create(Handle);
   if not DataCollector.Open(44100, 2) then begin
     MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
    // Halt;
   end;
-
-  ReadIni;
+  *)
 
   FFrames[0] := TOscilloscopeFrame.Create(self);
   FFrames[0].Parent := PgOscilloscope;
@@ -398,6 +389,8 @@ begin
   FFrames[1].OnBeginPlayback := @PlaybackBeginHandler;
   FFrames[1].OnEndPlayback := @PlaybackEndHandler;
   FFrames[1].OnDataReceived := @PlaybackDataReceivedHandler;
+
+  ReadIni;
 
   PopulateSampleRates(CbRecorderSampleRate);
   PopulateSampleRates(CbGeneratorSampleRate);
@@ -430,11 +423,6 @@ begin
   DataCollector.Close;
   DataCollector.Free;
   FGeneratorStream.Free;
-end;
-
-procedure TMainForm.HeaderPanelClick(Sender: TObject);
-begin
-
 end;
 
 function TMainForm.GetSampleRate: Integer;
@@ -536,17 +524,75 @@ begin
     n := ini.ReadInteger('MainForm', 'WindowState', 0);
     if n = ord(wsMaximized) then
       WindowState := wsMaximized;
+
     CbSource.ItemIndex := ini.ReadInteger('MainForm', 'Source', CbSource.ItemIndex);
     CbSourceSelect(nil);
     PageControl.ActivePageIndex := ini.ReadInteger('MainForm', 'PageControl', PageControl.ActivePageIndex);
     PageControlChange(nil);
+    InputPanel.Width := ini.ReadInteger('MainForm', 'InputPanelWidth', InputPanel.Width);
+
     NoDamageWarning_Mic := ini.ReadBool('Settings', 'NoWarning_SoundcardDamage', NoDamageWarning_Mic);
     NoDamageWarning_Out := ini.ReadBool('Settings', 'NoWarning_SpeakerDamage', NoDamageWarning_Out);
+    SelectAudioEngine(ini.ReadString('Settings', 'AudioLib', CbAudioEngine.Text));
+
+    FFrames[0].ControlPanel.Width := ini.ReadInteger('Oscilloscope', 'ControlPanelWidth', FFrames[0].ControlPanel.Width);
     ShowLinesAndSymbols := ini.ReadBool('Oscilloscope', 'ShowLinesAndSymbols', ShowLinesAndSymbols);
     LogFrequencyAxis := ini.ReadBool('SpectrumAnalyzer', 'LogFrequenyAxis', LogFrequencyAxis);
   finally
     ini.Free;
   end;
+end;
+
+procedure TMainForm.SelectAudioEngine(AudioEngineName: String);
+var
+  engine, s: String;
+  i, idx: Integer;
+begin
+  if AudioEngineName = '' then
+    exit;
+
+  idx := -1;
+  engine := Uppercase(AudioEngineName);
+  for i := 0 to CbAudioEngine.Items.Count-1 do
+    if Uppercase(CbAudioEngine.Items[i]) = engine then
+    begin
+      idx := i;
+      break;
+    end;
+  if idx = -1 then
+  begin
+    MessageDlg('Audio engine "' + AudioEngineName +'" not implemented.', mtError, [mbOK], 0);
+    exit;
+  end;
+  CbAudioEngine.ItemIndex := idx;
+
+  if Assigned(DataCollector) then
+  begin
+    DataCollector.Close;
+    DataCollector.Free;
+  end;
+  FGeneratorStream.Free;
+
+  sleep(100);  // Why?
+
+  if engine = 'BASS' then
+  begin
+    DataCollector := TBassDataCollector.Create(Handle);
+    if not DataCollector.Open(44100, 2) then
+      MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
+  end;
+
+  if engine = 'UOS' then
+  begin
+    DataCollector := TuosDataCollector.Create(Handle);
+    if not DataCollector.Open(44100, 2) then
+      MessageDlg('Some libraries did not load', mtError, [mbOK], 0);
+  end;
+
+  FFrames[0].SetDataCollector(DataCollector);
+  FFrames[1].SetDatacollector(DataCollector);
+
+  FGeneratorStream := TMemoryStream.Create;
 end;
 
 procedure TMainForm.SwFrequencyChange(Sender: TObject);
@@ -656,8 +702,13 @@ begin
     ini.WriteInteger('MainForm', 'WindowState', ord(WindowState));
     ini.WriteInteger('MainForm', 'Source', CbSource.ItemIndex);
     ini.WriteInteger('MainForm', 'PageControl', PageControl.ActivePageIndex);
+    ini.WriteInteger('MainForm', 'InputPanelWidth', InputPanel.Width);
+
     ini.WriteBool('Settings', 'NoWarning_SoundcardDamage', NoDamageWarning_Mic);
     ini.WriteBool('Settings', 'NoWarning_SpeakerDamage', NoDamageWarning_Out);
+    ini.WriteString('Settings', 'AudioLib', CbAudioEngine.Text);
+
+    ini.WriteInteger('Oscilloscope', 'ControlPanelWidth', FFrames[0].ControlPanel.Width);
     ini.WriteBool('Oscilloscope', 'ShowLinesAndSymbols', ShowLinesAndSymbols);
     ini.WriteBool('SpectrumAnalyzer', 'LogFrequenyAxis', LogFrequencyAxis);
   finally

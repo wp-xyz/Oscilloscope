@@ -5,12 +5,9 @@ unit ouosDataCollector;
 interface
 
 uses
-  Classes,
-  SysUtils,
-  LCLType,
+  Classes, SysUtils, LCLType,
   uos_flat,
-  oGlobal,
-  oDataCollector;
+  oGlobal, oDataCollector;
 
 type
 
@@ -61,7 +58,7 @@ var
 implementation
 
 uses
-  LConvEncoding,
+  LConvEncoding, LazFileUtils, Forms,
   omain;
 
 const
@@ -179,7 +176,8 @@ begin
 
    {$IFDEF Windows}
    // ordir  := '.\3rdParty\uos\';
-    ordir := '.\';
+   // ordir := '.\';
+    ordir := AppendPathDelim(Application.Location);
   {$else}
    //  ordir := './3rdParty/uos/';
     ordir := './';
@@ -187,13 +185,13 @@ begin
 
     {$IFDEF Windows}
      {$if defined(cpu64)}
-    pafn := ordir + 'lib\Windows\64bit\LibPortaudio-64.dll';
-    sffn := ordir + 'lib\Windows\64bit\LibSndFile-64.dll';
-    mpfn := ordir + 'lib\Windows\64bit\LibMpg123-64.dll';
+    pafn := ordir + 'LibPortaudio-64.dll';
+    sffn := ordir + 'LibSndFile-64.dll';
+    mpfn := ordir + 'LibMpg123-64.dll';
     {$else}
-    pafn := ordir + 'lib\Windows\32bit\LibPortaudio-32.dll';
-    sffn := ordir + 'lib\Windows\32bit\LibSndFile-32.dll';
-    mpfn := ordir + 'lib\Windows\32bit\LibMpg123-32.dll';
+    pafn := ordir + 'LibPortaudio-32.dll';
+    sffn := ordir + 'LibSndFile-32.dll';
+    mpfn := ordir + 'LibMpg123-32.dll';
     {$endif}
    {$ENDIF}
 
