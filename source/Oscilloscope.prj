@@ -224,7 +224,7 @@ options=114
  index=1
  [projectoptionsfo.setting_tab]
  firsttab=0
- index=0
+ index=2
  [projectoptionsfo]
  stackedunder=
  x=337
@@ -284,7 +284,7 @@ makeoptions=9
  -gl
  -B
  -O-
- -O2 -XX -CX -Xs
+ -XX -CX -Xs
  -vi
  -FUunits/
  -dLCL -dLCLgtk2
@@ -512,9 +512,9 @@ modulefiles=0
 befcommandon=0
 makeoptionson=9
  63
- 4
+ 0
  2
- 2
+ 6
  61
  4095
  63
@@ -869,14 +869,14 @@ findhistory=20
  uos_AddIntoDevOut
 findoptions=1
 editpos=8
+ 0,-1073741823
+ 0,3
+ 0,334
  0,0
- 0,0
- 2,0
+ 0,-1073741823
  0,0
  0,-1073741823
  0,-1073741823
- 0,5
- 0,0
 bookmarks0=0
 bookmarks1=0
 bookmarks2=0
@@ -901,7 +901,7 @@ relpaths=8
  odatacollector.pas
  3rdParty/uos/uos.pas
  3rdParty/uos/uos_flat.pas
- ../uos/examples/simplerecorder_fpGUI.pas
+ uos/examples/simplerecorder_fpGUI.pas
  ooscilloscopeframe.pas
 ismoduletexts=8
  0
@@ -917,19 +917,10 @@ moduleoptions=0
 visiblemodules=0
 nomenumodules=0
 [sourcefo.files_tab]
-order=8
- 1
- 2
- 7
- 8
- 0
- 3
- 5
- 4
 firsttab=0
-index=1
+index=2
 [layout]
-windowlayout=572
+windowlayout=563
  [mainfo.basedock]
  splitdir=2
  useroptions=268450944
@@ -1394,11 +1385,11 @@ windowlayout=572
  nx=0
  ny=0
  ncx=1341
- ncy=10
+ ncy=4
  x=0
  y=0
  cx=1341
- cy=8
+ cy=2
  rcx=0
  rcy=0
  [debuggerfo.edit_options]
@@ -1410,6 +1401,7 @@ windowlayout=572
  [debuggerfo.file_history]
  value=/home/fred/Oscilloscope/source/ouosdatacollector.pas
  history=20
+  /home/fred/Oscilloscope/source/omain.pas
   /home/fred/Oscilloscope/source/ooscilloscopeframe.pas
   /home/fred/Oscilloscope/source/ouosdatacollector.pas
   /home/fred/Oscilloscope/source/3rdParty/uos/uos_flat.pas
@@ -1429,7 +1421,6 @@ windowlayout=572
   /home/fred/mseide-msegui/lib/common/kernel/linux/msesysintf.pas
   /home/fred/mseide-msegui/lib/common/kernel/msethread.pas
   /home/fred/strumpract/src/mclasses.pas
-  /home/fred/msetest/mclasses.pas
  [debuggerfo.project_options]
  value=1
  [debuggerfo.hints]
@@ -1451,17 +1442,8 @@ windowlayout=572
  rcx=0
  rcy=0
  [sourcefo.files_tab]
- order=8
-  1
-  2
-  7
-  8
-  0
-  3
-  5
-  4
  firsttab=0
- index=1
+ index=2
  [confideufo.fontname]
  value=stf_default
  [confideufo.usedefaulteditoroptions]

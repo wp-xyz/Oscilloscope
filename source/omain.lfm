@@ -162,10 +162,10 @@ object MainForm: TMainForm
         AnchorSideRight.Control = BtnStop
         AnchorSideBottom.Control = StartStopPanel
         AnchorSideBottom.Side = asrBottom
-        Left = 66
+        Left = 40
         Height = 25
         Top = 8
-        Width = 64
+        Width = 90
         Anchors = [akRight, akBottom]
         BorderSpacing.Right = 8
         BorderSpacing.Bottom = 6

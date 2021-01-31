@@ -28,14 +28,17 @@ type
     GbTrigger: TGroupBox;
     TriggerPanel: TPanel;
     TimeBasePanel: TPanel;
-    TxtInfo: TLabel;
-    TxtFrequency: TLabel;
     Panel2: TPanel;
     SwTimebase: TuESelector;
     PotTriggerLevel: TuEKnob;
+    TxtFrequency: TLabel;
+    TxtInfo: TLabel;
+    procedure BtnTriggerLeftClick(Sender: TObject);
     procedure CbShowSeriesPointsChange(Sender: TObject);
+    procedure ControlPanelClick(Sender: TObject);
     procedure DataPointCrosshairToolDraw(ASender: TDataPointDrawTool);
     procedure EdTriggerLevelChange(Sender: TObject);
+    procedure GbTriggerClick(Sender: TObject);
     procedure LeftChannelChartSourceGetChartDataItem(ASource: TUserDefinedChartSource;
       AIndex: Integer; var AItem: TChartDataItem);
     procedure PotTriggerLevelChange(Sender: TObject);
@@ -43,6 +46,7 @@ type
       AIndex: Integer; var AItem: TChartDataItem);
     procedure SwTimebaseChange(Sender: TObject);
     procedure TimerEventHandler(Sender: TObject);
+    procedure TxtInfoClick(Sender: TObject);
   private
     FTriggerLevelLock: Integer;
     FTriggerIndex: Integer;
@@ -150,6 +154,16 @@ begin
   RightChannelSeries.ShowPoints := ShowLinesAndSymbols;
 end;
 
+procedure TOscilloscopeFrame.BtnTriggerLeftClick(Sender: TObject);
+begin
+
+end;
+
+procedure TOscilloscopeFrame.ControlPanelClick(Sender: TObject);
+begin
+
+end;
+
 procedure TOscilloscopeFrame.DataPointCrosshairToolDraw(
   ASender: TDataPointDrawTool);
 var
@@ -184,6 +198,11 @@ begin
   inc(FTriggerLevelLock);
   PotTriggerLevel.Position := EdTriggerLevel.Value;
   dec(FTriggerLevelLock);
+end;
+
+procedure TOscilloscopeFrame.GbTriggerClick(Sender: TObject);
+begin
+
 end;
 
 procedure TOscilloscopeFrame.FindTriggerIndex(AChannelIndex: TChannelIndex;
@@ -375,11 +394,12 @@ begin
   Chart.Invalidate;
 
   // Frequency display
-  s := 'Frequency: ';
+  s := 'Freq ';
   f := CalcFrequency(ciLeft);
   if IsNaN(f) then s := s + 'L: -; ' else s := s + Format('L: %.3fHz; ', [f]);
   f := CalcFrequency(ciRight);
-  if IsNaN(f) then s := s + 'R: -; ' else s := s + Format('R: %.3fHz', [f]);
+  if IsNaN(f) then s := s + lineending + 'Freq R: -; ' else s := s +
+  lineending + Format('Freq R: %.3fHz', [f]);
   TxtFrequency.Caption := s;
   TxtFrequency.Repaint;
 
@@ -398,6 +418,11 @@ begin
   // Notify main form of received data
   if Assigned(OnDataReceived) then
     OnDataReceived(self);
+end;
+
+procedure TOscilloscopeFrame.TxtInfoClick(Sender: TObject);
+begin
+
 end;
 
 end.
