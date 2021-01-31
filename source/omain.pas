@@ -23,6 +23,7 @@ type
     BtnTriangWave: TSpeedButton;
     CbRecorderSampleRate: TComboBox;
     CbGeneratorSampleRate: TComboBox;
+    CbAudioEngine: TComboBox;
     DataPanelBevel: TBevel;
     BtnStart: TButton;
     BtnStop: TButton;
@@ -78,7 +79,7 @@ type
     procedure BtnSineWaveClick(Sender: TObject);
     procedure BtnStartClick(Sender: TObject);
     procedure BtnStopClick(Sender: TObject);
-
+    procedure CbAudioEngineChange(Sender: TObject);
     procedure CbInputDeviceSelect(Sender: TObject);
     procedure CbSourceSelect(Sender: TObject);
     procedure CbVolumeLeftONClick(Sender: TObject);
@@ -91,11 +92,11 @@ type
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure HeaderPanelClick(Sender: TObject);
 
     procedure PageControlChange(Sender: TObject);
     procedure PageControlChanging(Sender: TObject; var AllowChange: Boolean);
     procedure PotFrequencyChange(Sender: TObject);
-
     procedure SwFrequencyChange(Sender: TObject);
 
     procedure TbDutyCycleChange(Sender: TObject);
@@ -139,7 +140,7 @@ implementation
 
 uses
   Math, IniFiles,
-  oUtils, oBASSDataCollector, oOscilloscopeFrame, oSpectrumFrame;
+  oUtils, oBASSDataCollector, ouosDataCollector, oOscilloscopeFrame, oSpectrumFrame;
 
 
 { TMainForm }
@@ -217,6 +218,32 @@ begin
   BtnStart.Caption := 'Start';
   RunLED.Active := false;
   Application.ProcessMessages;
+end;
+
+procedure TMainForm.CbAudioEngineChange(Sender: TObject);
+begin
+  DataCollector.Close;
+  DataCollector.Free;
+  FGeneratorStream.Free;
+  
+  sleep(100);  
+ 
+  if CbAudioEngine.text = 'Bass' then
+  begin
+  DataCollector := TBassDataCollector.Create(Handle);
+  if not DataCollector.Open(44100, 2) then
+    MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
+  end;
+  if CbAudioEngine.text = 'uos' then 
+  begin
+  DataCollector := TuosDataCollector.Create(Handle);
+  if not DataCollector.Open(44100, 2) then 
+   MessageDlg('Some libraries did not load', mtError, [mbOK], 0);
+  end;
+  
+  
+  FGeneratorStream := TMemoryStream.Create;
+  
 end;
 
 procedure TMainForm.CbGeneratorSampleRateSelect(Sender: TObject);
@@ -345,10 +372,11 @@ procedure TMainForm.FormCreate(Sender: TObject);
 var
   ci: TChannelIndex;
 begin
-  DataCollector := TBassDataCollector.Create(Handle);
+
+   DataCollector := TBassDataCollector.Create(Handle);
   if not DataCollector.Open(44100, 2) then begin
     MessageDlg(DataCollector.ErrMsg, mtError, [mbOK], 0);
-    Halt;
+   // Halt;
   end;
 
   ReadIni;
@@ -404,6 +432,11 @@ begin
   FGeneratorStream.Free;
 end;
 
+procedure TMainForm.HeaderPanelClick(Sender: TObject);
+begin
+
+end;
+
 function TMainForm.GetSampleRate: Integer;
 begin
   if (CbRecorderSampleRate.ItemIndex >= 0) and
@@ -437,11 +470,12 @@ begin
   dec(FFrequencyLock);
 end;
 
-procedure TMainForm.PlaybackBeginHandler(Sender: TObject);
+procedure TMainForm.PlaybackDataReceivedHandler(Sender: TObject);
 begin
+  //
 end;
 
-procedure TMainForm.PlaybackDataReceivedHandler(Sender: TObject);
+procedure TMainForm.PlaybackBeginHandler(Sender: TObject);  
 begin
   //
 end;

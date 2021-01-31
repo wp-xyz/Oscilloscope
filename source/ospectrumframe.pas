@@ -64,7 +64,7 @@ implementation
 
 uses
   Math, StrUtils,
-  TAChartUtils,
+  TAChartUtils,ouosDataCollector, omain,
   oUtils;
 
 constructor TSpectrumFrame.Create(AOwner: TComponent);
@@ -308,6 +308,8 @@ begin
 
   // Get data
   n := FDataCollector.GetFFTData(@FData[0], GetNumSamples, GetNumChannels);
+  
+ if MainForm.CbAudioEngine.text = 'uos' then FData := BData;
 
   // prepare series
   LeftChannelChartSource.Reset;
