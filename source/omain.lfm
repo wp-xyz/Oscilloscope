@@ -224,7 +224,7 @@ object MainForm: TMainForm
       Height = 446
       Top = 100
       Width = 219
-      PageIndex = 2
+      PageIndex = 0
       Align = alClient
       TabOrder = 3
       object RecorderPage: TPage
@@ -232,12 +232,12 @@ object MainForm: TMainForm
           Left = 8
           Height = 430
           Top = 8
-          Width = 194
+          Width = 203
           Align = alClient
           BorderSpacing.Around = 8
           BevelOuter = bvNone
           ClientHeight = 430
-          ClientWidth = 194
+          ClientWidth = 203
           TabOrder = 0
           Visible = False
           object LblInputDevice: TLabel
@@ -256,7 +256,7 @@ object MainForm: TMainForm
             AnchorSideTop.Control = LblInputDevice
             AnchorSideRight.Control = RecorderPanel
             AnchorSideRight.Side = asrBottom
-            Left = 140
+            Left = 149
             Height = 15
             Top = 0
             Width = 54
@@ -273,7 +273,7 @@ object MainForm: TMainForm
             Left = 0
             Height = 23
             Top = 19
-            Width = 194
+            Width = 203
             Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Top = 4
             ItemHeight = 15
@@ -303,7 +303,7 @@ object MainForm: TMainForm
             Left = 0
             Height = 36
             Top = 71
-            Width = 194
+            Width = 203
             Frequency = 10
             Max = 100
             OnChange = TbRecordingLevelChange
@@ -319,7 +319,7 @@ object MainForm: TMainForm
             Left = 128
             Height = 15
             Top = 52
-            Width = 66
+            Width = 75
             Alignment = taRightJustify
             Anchors = [akTop, akLeft, akRight]
             Caption = '100%'
@@ -335,7 +335,7 @@ object MainForm: TMainForm
             Left = 0
             Height = 23
             Top = 134
-            Width = 194
+            Width = 203
             Anchors = [akTop, akLeft, akRight, akBottom]
             BorderSpacing.Top = 4
             BorderSpacing.Bottom = 8

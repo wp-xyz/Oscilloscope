@@ -370,9 +370,9 @@ begin
   BtnSquareWave.Constraints.MinHeight := BtnStart.Height;
   w := MaxValue([BtnSineWave.Width, BtnTriangWave.Width, BtnSquareWave.Width]);
   InputPanel.Constraints.MinWidth := MaxValue([
-    RunLED.Width + 2*BtnStart.Width + 4*BtnStart.BorderSpacing.Left,
-    3*w + GbWaveForm.ChildSizing.HorizontalSpacing*2 + GbWaveForm.ChildSizing.LeftRightSpacing,
-    2*wk + Bevel3.Width
+    Integer(2*wk + Bevel3.Width),
+    Integer(RunLED.Width + 2*BtnStart.Width + 4*BtnStart.BorderSpacing.Left),
+    Integer(3*w + GbWaveForm.ChildSizing.HorizontalSpacing*2 + GbWaveForm.ChildSizing.LeftRightSpacing)
   ]);
   GbWaveForm.ChildSizing.Layout := cclTopToBottomThenLeftToRight;
 
