@@ -46,6 +46,7 @@ type
       AIndex: Integer; var AItem: TChartDataItem);
     procedure SwTimebaseChange(Sender: TObject);
     procedure TimerEventHandler(Sender: TObject);
+    procedure TxtFrequencyClick(Sender: TObject);
     procedure TxtInfoClick(Sender: TObject);
   private
     FTriggerLevelLock: Integer;
@@ -396,7 +397,7 @@ begin
   // Frequency display
   s := 'Freq ';
   f := CalcFrequency(ciLeft);
-  if IsNaN(f) then s := s + 'L: -; ' else s := s + Format('L: %.3fHz; ', [f]);
+  if IsNaN(f) then s := s + 'L: -; ' else s := s + Format('L: %.3fHz ', [f]);
   f := CalcFrequency(ciRight);
   if IsNaN(f) then s := s + lineending + 'Freq R: -; ' else s := s +
   lineending + Format('Freq R: %.3fHz', [f]);
@@ -418,6 +419,11 @@ begin
   // Notify main form of received data
   if Assigned(OnDataReceived) then
     OnDataReceived(self);
+end;
+
+procedure TOscilloscopeFrame.TxtFrequencyClick(Sender: TObject);
+begin
+
 end;
 
 procedure TOscilloscopeFrame.TxtInfoClick(Sender: TObject);

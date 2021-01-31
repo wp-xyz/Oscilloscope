@@ -18,7 +18,7 @@ object MainForm: TMainForm
     BevelOuter = bvNone
     ClientHeight = 583
     ClientWidth = 210
-    Color = clNone
+    Color = clInactiveBorder
     ParentColor = False
     TabOrder = 0
     object HeaderPanel: TPanel
@@ -31,9 +31,10 @@ object MainForm: TMainForm
       BevelOuter = bvNone
       ClientHeight = 28
       ClientWidth = 210
-      Color = clWindow
+      Color = clInactiveBorder
       ParentColor = False
       TabOrder = 0
+      OnClick = HeaderPanelClick
       object Label1: TLabel
         AnchorSideLeft.Control = HeaderPanel
         AnchorSideTop.Control = HeaderPanel
@@ -1212,7 +1213,7 @@ object MainForm: TMainForm
       BevelOuter = bvNone
       ClientHeight = 28
       ClientWidth = 725
-      Color = clWindow
+      Color = clActiveBorder
       ParentColor = False
       TabOrder = 0
       object Label2: TLabel

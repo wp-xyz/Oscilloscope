@@ -16,8 +16,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="oMain"/>
-        <TopLine Value="349"/>
-        <CursorPos X="3" Y="359"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="435"/>
+        <CursorPos X="3" Y="437"/>
         <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -56,10 +57,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Frame"/>
         <UnitName Value="oOscilloscopeFrame"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="150"/>
-        <CursorPos X="3" Y="164"/>
+        <TopLine Value="395"/>
+        <CursorPos X="69" Y="400"/>
         <UsageCount Value="28"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -100,107 +100,107 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="omain.pas"/>
-        <Caret Line="252" Column="3" TopLine="250"/>
+        <Caret Line="229" Column="6" TopLine="227"/>
       </Position1>
       <Position2>
         <Filename Value="omain.pas"/>
-        <Caret Line="251" Column="3" TopLine="249"/>
+        <Caret Line="230" Column="41" TopLine="227"/>
       </Position2>
       <Position3>
         <Filename Value="omain.pas"/>
-        <Caret Line="258" Column="3" TopLine="256"/>
+        <Caret Line="228" Column="6" TopLine="227"/>
       </Position3>
       <Position4>
         <Filename Value="omain.pas"/>
-        <Caret Line="229" Column="6" TopLine="227"/>
+        <Caret Line="385" Column="9" TopLine="371"/>
       </Position4>
       <Position5>
         <Filename Value="omain.pas"/>
-        <Caret Line="230" Column="41" TopLine="227"/>
+        <Caret Line="435" Column="25" TopLine="427"/>
       </Position5>
       <Position6>
-        <Filename Value="omain.pas"/>
-        <Caret Line="228" Column="6" TopLine="227"/>
+        <Filename Value="ooscilloscopeframe.pas"/>
+        <Caret Line="7" Column="8"/>
       </Position6>
       <Position7>
-        <Filename Value="omain.pas"/>
-        <Caret Line="385" Column="9" TopLine="371"/>
+        <Filename Value="ooscilloscopeframe.pas"/>
+        <Caret Line="402" Column="3" TopLine="383"/>
       </Position7>
       <Position8>
-        <Filename Value="omain.pas"/>
-        <Caret Line="435" Column="25" TopLine="427"/>
+        <Filename Value="ooscilloscopeframe.pas"/>
+        <Caret Line="239" Column="3" TopLine="236"/>
       </Position8>
       <Position9>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="7" Column="8"/>
+        <Caret Line="238" Column="3" TopLine="235"/>
       </Position9>
       <Position10>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="402" Column="3" TopLine="383"/>
+        <Caret Line="237" Column="3" TopLine="234"/>
       </Position10>
       <Position11>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="239" Column="3" TopLine="236"/>
+        <Caret Line="245" Column="3" TopLine="242"/>
       </Position11>
       <Position12>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="238" Column="3" TopLine="235"/>
+        <Caret Line="162" Column="3" TopLine="160"/>
       </Position12>
       <Position13>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="237" Column="3" TopLine="234"/>
+        <Caret Line="157" Column="3" TopLine="155"/>
       </Position13>
       <Position14>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="245" Column="3" TopLine="242"/>
+        <Caret Line="156" Column="3" TopLine="154"/>
       </Position14>
       <Position15>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="162" Column="3" TopLine="160"/>
+        <Caret Line="158" Column="3" TopLine="156"/>
       </Position15>
       <Position16>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="157" Column="3" TopLine="155"/>
+        <Caret Line="418" Column="3" TopLine="402"/>
       </Position16>
       <Position17>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="156" Column="3" TopLine="154"/>
+        <Caret Line="396" Column="29" TopLine="387"/>
       </Position17>
       <Position18>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="158" Column="3" TopLine="156"/>
+        <Caret Line="425" Column="3" TopLine="409"/>
       </Position18>
       <Position19>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="418" Column="3" TopLine="402"/>
+        <Caret Line="205" Column="3" TopLine="203"/>
       </Position19>
       <Position20>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="396" Column="29" TopLine="387"/>
+        <Caret Line="152" Column="3" TopLine="150"/>
       </Position20>
       <Position21>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="425" Column="3" TopLine="409"/>
+        <Caret Line="153" Column="3" TopLine="151"/>
       </Position21>
       <Position22>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="205" Column="3" TopLine="203"/>
+        <Caret Line="152" Column="3" TopLine="150"/>
       </Position22>
       <Position23>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="152" Column="3" TopLine="150"/>
+        <Caret Line="153" Column="3" TopLine="151"/>
       </Position23>
       <Position24>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="153" Column="3" TopLine="151"/>
+        <Caret Line="152" Column="3" TopLine="150"/>
       </Position24>
       <Position25>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="152" Column="3" TopLine="150"/>
+        <Caret Line="151" Column="3" TopLine="149"/>
       </Position25>
       <Position26>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="153" Column="3" TopLine="151"/>
+        <Caret Line="161" Column="49" TopLine="150"/>
       </Position26>
       <Position27>
         <Filename Value="ooscilloscopeframe.pas"/>
@@ -208,15 +208,15 @@
       </Position27>
       <Position28>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="151" Column="3" TopLine="149"/>
+        <Caret Line="158" Column="18" TopLine="151"/>
       </Position28>
       <Position29>
         <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="161" Column="49" TopLine="150"/>
+        <Caret Line="426" Column="3" TopLine="415"/>
       </Position29>
       <Position30>
-        <Filename Value="ooscilloscopeframe.pas"/>
-        <Caret Line="152" Column="3" TopLine="150"/>
+        <Filename Value="omain.pas"/>
+        <Caret Line="360" Column="3" TopLine="350"/>
       </Position30>
     </JumpHistory>
     <RunParams>

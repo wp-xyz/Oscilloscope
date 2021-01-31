@@ -871,10 +871,10 @@ findoptions=1
 editpos=8
  0,-1073741823
  0,3
- 0,334
- 0,0
+ 0,321
  0,-1073741823
- 0,0
+ 0,-1073741823
+ 0,-1073741823
  0,-1073741823
  0,-1073741823
 bookmarks0=0
@@ -960,7 +960,7 @@ windowlayout=563
  rcy=0
  wsize=0
  active=0
- visible=1
+ visible=0
  [threadsfo]
  splitdir=0
  useroptions=268451945
@@ -1385,11 +1385,11 @@ windowlayout=563
  nx=0
  ny=0
  ncx=1341
- ncy=4
+ ncy=2
  x=0
  y=0
  cx=1341
- cy=2
+ cy=0
  rcx=0
  rcy=0
  [debuggerfo.edit_options]
@@ -1401,9 +1401,9 @@ windowlayout=563
  [debuggerfo.file_history]
  value=/home/fred/Oscilloscope/source/ouosdatacollector.pas
  history=20
+  /home/fred/Oscilloscope/source/ouosdatacollector.pas
   /home/fred/Oscilloscope/source/omain.pas
   /home/fred/Oscilloscope/source/ooscilloscopeframe.pas
-  /home/fred/Oscilloscope/source/ouosdatacollector.pas
   /home/fred/Oscilloscope/source/3rdParty/uos/uos_flat.pas
   /home/fred/Oscilloscope/source/Oscilloscope.lpr
   /home/fred/Oscilloscope-uos/source/Oscilloscope.lpr

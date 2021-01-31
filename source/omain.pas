@@ -92,6 +92,7 @@ type
 
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure HeaderPanelClick(Sender: TObject);
 
     procedure PageControlChange(Sender: TObject);
     procedure PageControlChanging(Sender: TObject; var AllowChange: Boolean);
@@ -429,6 +430,11 @@ begin
   DataCollector.Close;
   DataCollector.Free;
   FGeneratorStream.Free;
+end;
+
+procedure TMainForm.HeaderPanelClick(Sender: TObject);
+begin
+
 end;
 
 function TMainForm.GetSampleRate: Integer;

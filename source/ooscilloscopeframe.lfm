@@ -4,7 +4,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
   ClientHeight = 522
   ClientWidth = 909
   DesignLeft = 265
-  DesignTop = 385
+  DesignTop = 185
   inherited ControlPanel: TPanel
     Left = 645
     Height = 514
@@ -621,6 +621,7 @@ inherited OscilloscopeFrame: TOscilloscopeFrame
         Layout = tlCenter
         ParentColor = False
         ParentFont = False
+        OnClick = TxtFrequencyClick
       end
     end
     object CbShowSeriesPoints: TCheckBox[9]
