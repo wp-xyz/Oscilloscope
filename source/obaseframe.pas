@@ -11,8 +11,6 @@ uses
   oGlobal, oDataCollector, types;
 
 type
-  TDataAvailEvent = procedure(Sender: TObject; AWave: TWaveDataArray) of object;
-
   { TBaseFrame }
   TBaseFrame = class(TFrame)
     CbLinkedSensitivities: TCheckBox;
@@ -58,7 +56,6 @@ type
     FMode: TPlayRecordMode;
     FOnBeginPlayback: TNotifyEvent;
     FOnEndPlayback: TNotifyEvent;
-    FOnDataAvail: TDataAvailEvent;
     FOnDataReceived: TNotifyEvent;
     procedure SetSensValue(AChannelIndex: TChannelIndex; AValue: Double);
 
@@ -85,6 +82,10 @@ type
     procedure SetDataCollector(AValue: TDataCollector);
     procedure SetSampleRate(AValue: Integer);
 
+    // ************** NEW **************
+    procedure Prepare; virtual;
+    // *********************************
+
     function StartPlayback(const AFileName: String): Boolean; overload;
     function StartPlayback(AMemory: Pointer; ALength: DWord; ALoop: Boolean): Boolean; overload;
     function StartRecording(ASampleRate: Integer): Boolean;
@@ -102,6 +103,7 @@ type
       read FOnEndPlayback write FOnEndPlayback;
     property OnDataReceived: TNotifyEvent
       read FOnDataReceived write FOnDataReceived;
+
   end;
 
 
@@ -280,6 +282,11 @@ begin
     end;
 end;
 
+procedure TBaseFrame.Prepare;
+begin
+  //
+end;
+
 function TBaseFrame.StartPlayback(const AFileName: String): Boolean;
 begin
   Result := false;
@@ -346,6 +353,10 @@ begin
 
   if FDataCollector.Running then
     exit;
+
+  // ****** NEW ********
+  Prepare;
+  // *******************
 
   if FDataCollector.StartRecording(ASampleRate) then begin
     FSampleRate := ASampleRate;

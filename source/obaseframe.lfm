@@ -5,6 +5,7 @@ object BaseFrame: TBaseFrame
   Width = 683
   ClientHeight = 364
   ClientWidth = 683
+  LCLVersion = '2.1.0.0'
   TabOrder = 0
   DesignLeft = 451
   DesignTop = 422

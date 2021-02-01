@@ -21,6 +21,10 @@ type
   protected
     function GetErrorMsg: string;
 
+    // ********* NEW ********
+    procedure DataAvailProc; override;  // this must be used as argument in uos_LoopProcIn
+    // **********************
+
   public
     constructor Create(AHandle: HWnd); override;
     destructor Destroy; override;
@@ -89,6 +93,21 @@ procedure TuosDataCollector.Close;
 begin
   uos_free;
 end;
+
+//***********NEW******************************************
+procedure TuosDataCollector.DataAvailProc;
+var
+  P: Pointer;
+  N: Integer;
+begin
+  if Assigned(OnDataAvail) then
+  begin
+    //  P := @ (first byte in uosbuffer)
+    //  N := ( number of bytes in uosbuffer);
+    OnDataAvail(P, N);
+  end;
+end;
+// *********************************************************
 
 function TuosDataCollector.GetFFTData(ABufPtr: Pointer; ANumPoints, ANumChannels: integer): integer;
 var

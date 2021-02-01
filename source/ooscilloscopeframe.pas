@@ -44,11 +44,15 @@ type
       AIndex: Integer; var AItem: TChartDataItem);
     procedure SwTimebaseChange(Sender: TObject);
     procedure TimerEventHandler(Sender: TObject);
+
   private
     FTriggerLevelLock: Integer;
     FTriggerIndex: Integer;
     FTriggerTime: Double;
     FData: TChannelDataArray;
+    // ****** NEW ***************
+    procedure DataAvailHandler(ABufPtr: Pointer; ABufSize: Integer);
+    // ****************************
 
   protected
     function CalcFrequency(AChannelIndex: TChannelIndex): Double;
@@ -63,6 +67,9 @@ type
     procedure Activate; override;
     procedure Deactivate; override;
     procedure AutoSizeControls; override;
+    // *********** NEW *************
+    procedure Prepare; override;
+    // *****************************
   end;
 
 implementation
@@ -170,6 +177,71 @@ begin
   LeftChannelSeries.ShowPoints := ShowLinesAndSymbols;
   RightChannelSeries.ShowPoints := ShowLinesAndSymbols;
 end;
+
+// ******************* NEW ***************
+{ This event handler is called when the sound system has new data in its buffer.
+  ABufPtr points to the data received, ABufSize is the number of bytes in the buffer.
+  This routine must copy these data into the frame's buffer and plot the chart,
+  essentiall the same that is in TimerEventHandler. }
+procedure TOscilloscopeFrame.DataAvailHandler(ABufPtr: Pointer; ABufSize: Integer);
+var
+  numDataPerChannel: Integer;
+  f: Double;
+  level: Double;
+  triggerch: TChannelIndex;
+  s: String;
+begin
+  // In our case the data are 16bit integers, in case of stereo alternating
+  // between left and right channel,
+  numDataPerChannel := ABufSize div SizeOf(SmallInt) div FDataCollector.NumChannels;
+
+  // Copy data to FData
+  SetLength(FData, numDataPerChannel);
+  Move(ABufPtr^, FData[0], ABufSize);
+
+  // prepare series
+  LeftChannelChartSource.PointsNumber := numDataPerChannel;
+  LeftChannelChartSource.Reset;
+  RightChannelChartSource.PointsNumber := numDataPerChannel;
+  RightChannelChartSource.Reset;
+
+  // Find trigger time
+  if BtnTriggerAsc.Down or BtnTriggerDesc.Down then
+  begin
+    level := EdTriggerLevel.value * 0.01 * $7FFF;
+    if BtnTriggerLeft.Down then triggerch := ciLeft else triggerch := ciRight;
+  end;
+  FindTriggerIndex(triggerCh, level);
+
+  // Repaint chart
+  Chart.Invalidate;
+
+  // Frequency display
+  s := 'Freq ';
+  f := CalcFrequency(ciLeft);
+  if IsNaN(f) then s := s + 'L: -; ' else s := s + Format('L: %.3fHz ', [f]);
+  f := CalcFrequency(ciRight);
+  if IsNaN(f) then s := s + lineending + 'Freq R: -; ' else s := s + lineending + Format('Freq R: %.3fHz', [f]);
+  TxtFrequency.Caption := s;
+  TxtFrequency.Repaint;
+
+  // Progress info display
+  if not FCrosshairActive then
+  begin
+    TxtInfo.Caption := Format(
+      'Time: %s'#13+
+      'Bytes: %.0n', [
+      FormatDateTime('nn:ss.zzz', FDataCollector.GetRunningTime / (24*60*60)),
+      FDataCollector.GetPlayedBytes*1.0
+    ]);
+    if not GbInfo.Visible then GbInfo.Show;
+  end;
+
+  // Notify main form of received data
+  if Assigned(OnDataReceived) then
+    OnDataReceived(self);
+end;
+// ***************************************
 
 procedure TOscilloscopeFrame.DataPointCrosshairToolDraw(
   ASender: TDataPointDrawTool);
@@ -294,6 +366,12 @@ begin
   dec(FTriggerLevelLock);
 end;
 
+//**************** NEW *********************
+procedure TOscilloscopeFrame.Prepare;
+begin
+  FDataCollector.OnDataAvail := @DataAvailHandler;
+end;
+//*******************************************
 procedure TOscilloscopeFrame.RightChannelChartSourceGetChartDataItem(
   ASource: TUserDefinedChartSource; AIndex: Integer; var AItem: TChartDataItem);
 begin

@@ -21,6 +21,10 @@ type
   protected
     function GetErrorMsg: String;
 
+    // ********** NEW *****************
+    procedure DataAvailProc; override;
+    // *********************************
+
   public
     constructor Create(AHandle: HWnd); override;
     destructor Destroy; override;
@@ -71,6 +75,13 @@ destructor TBassDataCollector.Destroy;
 begin
   inherited;
 end;
+
+// ************* NEW ***************
+procedure TBassDataCollector.DataAvailProc;
+begin
+  // do nothing (this mechanism is not implemented for BASS)
+end;
+// ***********************************
 
 function TBassDataCollector.GetErrorMsg: String;
 var
@@ -314,6 +325,7 @@ begin
   Result := True;
   // Data will be pulled by timer
 end;
+
 
 function TBassDataCollector.StartPlayback(const AFilename: String): Boolean;
 const

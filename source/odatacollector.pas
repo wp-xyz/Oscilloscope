@@ -9,16 +9,26 @@ uses
   oGlobal;
 
 type
+  // ****************** NEW *****************
+  TDataAvailEvent = procedure (ABufPtr: Pointer; ABufSize: Integer) of object;
+  // ****************************************
+
   TDataCollector = class
   private
     FHandle: HWnd;
     FErrMsg: String;
+    // *********** NEW *************
+    FOnDataAvail: TDataAvailEvent;
+    // *****************************
     function GetErrMsg: String;
 
   protected
     FWaveData: TWaveDataArray;
     FSampleRate: Integer;
     FNumChannels: Integer;
+    // *************** NEW *****************
+    procedure DataAvailProc; virtual; abstract;
+    // *************************************
     procedure SetError(const AMsg: String);
     procedure SetSampleRate(AValue: Integer); virtual;
     procedure SetNumChannels(AValue: Integer); virtual;
@@ -60,6 +70,10 @@ type
     property Handle: HWnd read FHandle;
     property NumChannels: Integer read FNumChannels write SetNumChannels;
     property SampleRate: Integer read FSampleRate write SetSampleRate;
+
+    // ******************* NEW ****************
+    property OnDataAvail: TDataAvailEvent read FOnDataAvail write FOnDataAvail;
+    // ****************************************
   end;
 
 var
