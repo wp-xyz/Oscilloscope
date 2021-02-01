@@ -149,6 +149,7 @@ begin
   Result := BASS_ChannelGetData(FChannel, ABufPtr, flags);
 end;
 
+{ Returns the position in the input stream in bytes. }
 function TBassDataCollector.GetPlayedBytes: Int64;
 begin
   Result := BASS_ChannelGetPosition(FChannel, BASS_POS_BYTE);
@@ -220,6 +221,8 @@ begin
   BASS_RecordGetInput(AIndex, Result);
 end;
 
+{ Returns the position in the audio stream, or time since START has been pressed.
+  It is expected to be in seconds. }
 function TBassDataCollector.GetRunningTime: Double;
 var
   p: QWord;
@@ -228,6 +231,11 @@ begin
   Result := BASS_ChannelBytes2Seconds(FChannel, p);
 end;
 
+{ Returns the input data and stores them in an array of int16 values.
+  The array is preallocated by the calling routine.
+  ABufPtr points to the first value of the array, and ABufsize is the number
+  of bytes allocated for the array.
+  When there are two channels the values are alternating. }
 function TBassDataCollector.GetWaveData(ABufPtr: Pointer; ABufSize: Integer): Integer;
 begin
   Result :=  BASS_ChannelGetData(FChannel, ABufPtr, ABufSize);
@@ -253,7 +261,7 @@ begin
   if (not BASS_RecordInit(FDevice)) or
      (not BASS_Init(FDevice, ASampleRate, flags, {$IFNDEF MSWINDOWS}@{$ENDIF}Handle, nil)) then
   begin
-    err := GetErrorMsg; //BASS_ErrorGetCode;
+    err := GetErrorMsg;
     BASS_RecordFree;
     BASS_Free;
     SetError(Format('Failure to initialize sound device (Error "%s")'+LineEnding+
@@ -286,11 +294,16 @@ begin
   Result := (BASS_ChannelIsActive(FChannel) = BASS_ACTIVE_PLAYING);
 end;
 
+{ Activates/deactivates the input with the given index and sets its
+  sensitivity (volumne). This is a value between 0 (silent) and 1 (max).
+  The default level (-1, or any other negative number) is supposed to
+  leaves the volume unchanged. }
 procedure TBassDataCollector.SetRecordingInputActive(AIndex: Integer;
   Activate: Boolean; ASensitivity: Single = -1);
 begin
   if Activate then
-    BASS_RecordSetInput(AIndex, BASS_INPUT_ON, ASensitivity) else
+    BASS_RecordSetInput(AIndex, BASS_INPUT_ON, ASensitivity)
+  else
     BASS_RecordSetInput(AIndex, BASS_INPUT_OFF, ASensitivity);
 end;
 

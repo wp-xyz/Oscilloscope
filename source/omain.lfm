@@ -286,9 +286,9 @@ object MainForm: TMainForm
             AnchorSideTop.Side = asrBottom
             Left = 0
             Height = 15
-            Top = 52
+            Top = 58
             Width = 58
-            BorderSpacing.Top = 10
+            BorderSpacing.Top = 16
             Caption = 'Sensitivity'
             Font.Style = [fsBold]
             ParentColor = False
@@ -302,7 +302,7 @@ object MainForm: TMainForm
             AnchorSideRight.Side = asrBottom
             Left = 0
             Height = 36
-            Top = 71
+            Top = 77
             Width = 203
             Frequency = 10
             Max = 100
@@ -318,7 +318,7 @@ object MainForm: TMainForm
             AnchorSideRight.Side = asrBottom
             Left = 128
             Height = 15
-            Top = 52
+            Top = 58
             Width = 75
             Alignment = taRightJustify
             Anchors = [akTop, akLeft, akRight]
@@ -331,12 +331,11 @@ object MainForm: TMainForm
             AnchorSideTop.Side = asrBottom
             AnchorSideRight.Control = RecorderPanel
             AnchorSideRight.Side = asrBottom
-            AnchorSideBottom.Control = RecorderPanel
             Left = 0
             Height = 23
-            Top = 134
+            Top = 140
             Width = 203
-            Anchors = [akTop, akLeft, akRight, akBottom]
+            Anchors = [akTop, akLeft, akRight]
             BorderSpacing.Top = 4
             BorderSpacing.Bottom = 8
             DropDownCount = 24
@@ -351,7 +350,7 @@ object MainForm: TMainForm
             AnchorSideTop.Side = asrBottom
             Left = 0
             Height = 15
-            Top = 115
+            Top = 121
             Width = 67
             BorderSpacing.Top = 8
             Caption = 'Sample rate'
