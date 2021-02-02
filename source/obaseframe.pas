@@ -231,7 +231,8 @@ procedure TBaseFrame.Pause;
 begin
   if FDataCollector.Running then
   begin
-    Timer.Enabled := false;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := false;
     FDataCollector.Pause;
   end;
 end;
@@ -240,7 +241,8 @@ procedure TBaseFrame.Resume;
 begin
   if FDataCollector.Paused then
   begin
-    Timer.Enabled := true;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := true;
     FDataCollector.Resume;
   end;
 end;
@@ -311,10 +313,12 @@ begin
       FOnBeginPlayback(self);
     SetupTimebase;
     FMode := prmPlay;
-    Timer.Enabled := true;
+    if FDataCollector.Needtimer then
+      Timer.Enabled := true;
     Result := true;
   end else begin
-    Timer.Enabled := false;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := false;
     FMode := prmNone;
     MessageDlg(FDataCollector.ErrMsg, mtError, [mbOK], 0);
   end;
@@ -338,10 +342,12 @@ begin
       FOnBeginPlayback(self);
     SetupTimebase;
     FMode := prmPlay;
-    Timer.Enabled := true;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := true;
     Result := true;
   end else begin
-    Timer.Enabled := false;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := false;
     FMode := prmNone;
     MessageDlg(FDataCollector.ErrMsg, mtError, [mbOK], 0);
   end;
@@ -381,7 +387,8 @@ end;
 procedure TBaseFrame.Stop;
 begin
   FMode := prmNone;
-  Timer.Enabled := false;
+  if FDataCollector.NeedTimer then
+    Timer.Enabled := false;
   FDataCollector.Stop;
   if Assigned(FOnEndPlayback) then
     FOnEndPlayback(self);

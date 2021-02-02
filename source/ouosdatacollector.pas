@@ -221,7 +221,7 @@ begin
   i := 0;
   while (ABufPtr < EndPtr) and (i < nBuf) do
   begin
-    intValue := round(bufferwav[i]);
+    //intValue := round(bufferwav[i]);
     intValue := round(bufferwav[i] * 32768);
     if intValue > 32767 then
       intValue := 32767
@@ -392,6 +392,7 @@ begin
         (mainform.edvolume.Value / 100), 0, -1, -1, -1, 0, -1, 1024*FNumChannels) <> -1 then
       begin
         Result := True;
+//        uos_LoopProcIn(FChannel, 0, @DataAvailProc);
         uos_play(FChannel);
       end;
 end;
