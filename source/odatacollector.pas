@@ -25,6 +25,7 @@ type
   protected
     FWaveData: TWaveDataArray;
     FSampleRate: Integer;
+    FNeedTimer: Boolean;
     FNumChannels: Integer;
     // *************** NEW *****************
     procedure DataAvailProc; virtual; abstract;
@@ -68,6 +69,7 @@ type
 
     property ErrMsg: String read GetErrMsg;
     property Handle: HWnd read FHandle;
+    property NeedTimer: Boolean read FNeedTimer;
     property NumChannels: Integer read FNumChannels write SetNumChannels;
     property SampleRate: Integer read FSampleRate write SetSampleRate;
 

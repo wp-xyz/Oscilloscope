@@ -99,7 +99,8 @@ begin
   inherited;
   CbShowSeriesPoints.Checked := ShowLinesAndSymbols;
   SetupTimebase;
-  Timer.Enabled := Assigned(FDataCollector) and FDataCollector.Running;
+  if Assigned(FDataCollector) and FDataCollector.NeedTimer then
+    Timer.Enabled := Assigned(FDataCollector) and FDataCollector.Running;
 end;
 
 procedure TOscilloscopeFrame.AutoSizeControls;
@@ -182,7 +183,8 @@ end;
 { This event handler is called when the sound system has new data in its buffer.
   ABufPtr points to the data received, ABufSize is the number of bytes in the buffer.
   This routine must copy these data into the frame's buffer and plot the chart,
-  essentiall the same that is in TimerEventHandler. }
+  essentially the same that is in TimerEventHandler.
+  The OscilloscopeFrame assumes that the buffer elements at int16 values.}
 procedure TOscilloscopeFrame.DataAvailHandler(ABufPtr: Pointer; ABufSize: Integer);
 var
   numDataPerChannel: Integer;
@@ -266,7 +268,8 @@ end;
 
 procedure TOscilloscopeFrame.Deactivate;
 begin
-  Timer.Enabled := false;
+  if FDataCollector.NeedTimer then
+    Timer.Enabled := false;
   inherited;
 end;
 
@@ -428,7 +431,8 @@ begin
   LeftChannelChartSource.PointsNumber := n;
   RightChannelChartSource.PointsNumber := n;
 
-  Timer.Interval := Round(1000.0 * n / FSampleRate);
+  if FDataCollector.NeedTimer then
+    Timer.Interval := Round(1000.0 * n / FSampleRate);
 end;
 
 procedure TOscilloscopeFrame.SwTimebaseChange(Sender: TObject);

@@ -366,11 +366,13 @@ begin
       }
     SetupTimebase;
     FMode := prmRecord;
-    Timer.Enabled := true;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := true;
     Result := true;
   end else
   begin
-    Timer.Enabled := false;
+    if FDataCollector.NeedTimer then
+      Timer.Enabled := false;
     FMode := prmNone;
     MessageDlg(FDataCollector.ErrMsg, mtError, [mbOk], 0);
   end;

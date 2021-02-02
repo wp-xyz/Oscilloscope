@@ -73,6 +73,7 @@ var
 constructor TuosDataCollector.Create(AHandle: HWnd);
 begin
   inherited;
+  FNeedTimer := false;
 end;
 
 destructor TuosDataCollector.Destroy;
@@ -98,15 +99,53 @@ end;
 procedure TuosDataCollector.DataAvailProc;
 var
   P: Pointer;
-  N: Integer;
+  N, i: Integer;
+  bufferwav: TDArFloat;
+  intBuffer: array of SmallInt;
+  val: Single;
 begin
   if Assigned(OnDataAvail) then
   begin
     //  P := @ (first byte in uosbuffer)
     //  N := ( number of bytes in uosbuffer);
+    bufferwav := uos_InputGetbuffer(FChannel, 0);
+    SetLength(intBuffer, Length(bufferwav));
+    for i := 0 to High(intBuffer) do
+    begin
+      val := bufferwav[i] * 32768;
+      if val > 32767 then val := 32767 else if val < -32768 then val := 32768;
+      intBuffer[i] := round(val);
+    end;
+    P := @intBuffer[0];
+    N := Length(intBuffer)*SizeOf(Smallint);
     OnDataAvail(P, N);
   end;
 end;
+               (*
+procedure TuosDataCollector.DataAvailProc;
+var
+bufferWav: TDArFloat;
+intBuffer: Array of Integer;
+val: single;
+P: Pointer;
+N: Integer;
+begin
+if Assigned(OnDataAvail) then
+begin
+bufferwav := uos_InputGetBuffer(FChannel, 0);
+SetLength(intBuffer, Length(bufferwav));
+for i := 0 to High(IntBuffer) do
+begin
+val := bufferwav[i]*32868;
+if val > 32767 then val := 32767 else if val < -32768 then val := val := 32768;
+intBuffer[i] := round(val);
+end;
+P := @intBuffer[0];
+N := Length(intBuffer);
+OnDataAvail(P, N);
+end;
+end;
+*)
 // *********************************************************
 
 function TuosDataCollector.GetFFTData(ABufPtr: Pointer; ANumPoints, ANumChannels: integer): integer;
@@ -169,6 +208,7 @@ function TuosDataCollector.GetWaveData(ABufPtr: Pointer; ABufSize: integer): int
 var
   i, nBuf: integer;
   bufferwav: TDArFloat;
+//  bufferwav: TDArShort;
   EndPtr: Pointer;
   intValue: Integer;
 begin
@@ -181,6 +221,7 @@ begin
   i := 0;
   while (ABufPtr < EndPtr) and (i < nBuf) do
   begin
+    intValue := round(bufferwav[i]);
     intValue := round(bufferwav[i] * 32768);
     if intValue > 32767 then
       intValue := 32767
@@ -343,12 +384,12 @@ begin
   uos_stop(FChannel);
   if uos_CreatePlayer(FChannel) then
     if uos_AddIntoDevOut(FChannel, -1, -1,
-      StrToInt(mainform.CbGeneratorSampleRate.Caption), 1, 0, 1024, -1) <> -1 then
+      StrToInt(mainform.CbGeneratorSampleRate.Caption), 1, 0, 1024*FNumChannels, -1) <> -1 then
       if uos_AddFromSynth(FChannel, 1, wavetype, wavetype,
         (mainform.EdFrequency.Value * 1000),
         (mainform.EdFrequency.Value * 1000),
         (mainform.edvolume.Value / 100),
-        (mainform.edvolume.Value / 100), 0, -1, -1, -1, 0, -1, 1024) <> -1 then
+        (mainform.edvolume.Value / 100), 0, -1, -1, -1, 0, -1, 1024*FNumChannels) <> -1 then
       begin
         Result := True;
         uos_play(FChannel);
@@ -366,6 +407,7 @@ begin
     if uos_AddFromDevIn(FChannel, -1, -1, ASampleRate, -1, 0, 2048, -1 )  > -1 then
       begin
         Result := True;
+        uos_LoopProcIn(FChannel, 0, @DataAvailProc);
         uos_play(FChannel);
       end;  
 end;

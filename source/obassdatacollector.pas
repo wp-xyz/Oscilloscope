@@ -69,6 +69,7 @@ const
 constructor TBassDataCollector.Create(AHandle: HWnd);
 begin
   inherited;
+  FNeedTimer := true;
 end;
 
 destructor TBassDataCollector.Destroy;
