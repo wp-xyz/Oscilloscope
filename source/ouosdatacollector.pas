@@ -59,10 +59,15 @@ implementation
 
 uses
   LConvEncoding, LazFileUtils, Forms,
+  uos_dsp_noiseremoval,
   omain;
 
 const
   DEFAULT_DEVICE = -1;
+
+  FLOAT_INPUT = 0;        // "float" = single, -1 ... +1
+  INT32_INPUT = 1;
+  INT16_INPUT = 2;
 
 var
   erruos: integer = 0;
@@ -107,6 +112,86 @@ end;
 
 function TuosDataCollector.GetFFTData(ABufPtr: Pointer; ANumPoints, ANumChannels: integer): integer;
 var
+  bufferwav: TDArfloat = nil;
+  data: TDArFloat = nil;
+  dataRE: TDArFloat = nil;
+  dataIM: TDArfloat = nil;
+  FFT: PFFT;
+  buf, bufEnd: Pointer;
+  i, j, n: Integer;
+  factor: single = 1e-3;
+
+
+
+  L: TStringList;
+begin
+  bufferwav := uos_InputGetBuffer(FChannel, 0);
+  n := Length(bufferwav);
+
+  // Calculate FFT for left channel
+  SetLength(data, Length(bufferwav)*2);
+  j := 0;
+  for i := 0 to High(bufferwav) do
+  begin
+    data[j] := bufferwav[i];
+    data[j+1] := 0;
+    inc(j, 2);
+  end;
+
+  FFT := TFFT.InitializeFFT(Length(data));
+  FFT^.RealFFTf(@data[0]);
+  SetLength(dataRE, FFT^.Points);
+  SetLength(dataIM, FFT^.Points);
+  FFT^.ReorderToFreq(@data[0], @dataRE[0], @dataIM[0]);
+
+  L := TStringList.create;
+  try
+    decimalSeparator := '.';
+    for i := 0 to 2047 do
+      L.Add(Format('%d'#9'%.6f'#9'%.6f'#9'%.6f', [i, sqrt(sqr(dataRE[i])+sqr(dataIM[i])), dataRE[i], dataIM[i]]));
+    L.SaveTofile('fft.txt');
+  finally
+    L.Free;
+  end;
+
+  n := ANumPoints * ANumChannels;
+
+  buf := ABufPtr;
+  bufEnd := buf + ANumPoints*ANumChannels * SizeOf(PSingle);
+  i := 0;
+  while buf < bufEnd do begin
+    PSingle(buf)^ := sqrt(sqr(dataRE[i]) + sqr(dataIM[i]))*factor;
+    inc(buf, 2*SizeOf(PSingle));
+    inc(i);
+  end;
+
+  // Calculate FFT for right channel
+  j := 0;
+  for i := 0 to High(bufferwav) do
+  begin
+    data[j] := bufferwav[i+1];  // right channel is at odd indices
+    data[j] := 0;
+    inc(j, 2);
+  end;
+
+  FFT^.ReleaseFFT;
+  FFT^.RealFFTf(@data[0]);
+  FFT^.ReorderToFreq(@data[0], @dataRE[0], @dataIM[0]);
+  FFT^.EndFFT;
+
+  buf := ABufPtr;
+  inc(buf, SizeOf(PSingle));  // Put FFT of right channel on odd indices
+  bufEnd := buf + ANumPoints*ANumChannels;
+  i := 0;
+  while buf < bufEnd do begin
+    PSingle(buf)^ := sqrt(sqr(dataRE[i]) + sqr(dataIM[i])) * factor;
+    inc(buf, 2*SizeOf(PSingle));
+    inc(i);
+  end;
+end;
+
+{
+var
   i, x: integer;
   bufferwav: TDArFloat;
 begin
@@ -123,6 +208,7 @@ begin
 
   Result := 0;
 end;
+}
 
 function TuosDataCollector.GetPlayedBytes: int64;
 begin
@@ -316,11 +402,12 @@ begin
   Result   := False;
   FChannel := 0;
   if uos_CreatePlayer(FChannel) then
-    if uos_AddIntoDevOut(FChannel, -1, -1, FSampleRate, FNumChannels, 0, 2048 * FNumChannels, -1) <> -1 then
-      if uos_AddFromFile(FChannel, PChar(AFileName), -1, 0, 2048 * FNumChannels) > -1 then
+    if uos_AddIntoDevOut(FChannel, -1, -1, FSampleRate, FNumChannels, FLOAT_INPUT, 2048 * FNumChannels, -1) <> -1 then
+      if uos_AddFromFile(FChannel, PChar(AFileName), -1, FLOAT_INPUT, 2048 * FNumChannels) > -1 then
       begin
-       uos_InputSetPositionEnable(FChannel, 0, 1);
-       Result := True;
+        uos_InputSetPositionEnable(FChannel, 0, 1);
+        Result := True;
+        uos_LoopProcIn(FChannel, 0, @DataAvailProc);
         uos_play(FChannel);
       end;
 end;
@@ -348,15 +435,12 @@ begin
         (mainform.edvolume.Value / 100), 0, -1, -1, -1, 0, -1, 1024*FNumChannels) <> -1 then
       begin
         Result := True;
-//        uos_LoopProcIn(FChannel, 0, @DataAvailProc);
+        uos_LoopProcIn(FChannel, 0, @DataAvailProc);
         uos_play(FChannel);
       end;
 end;
 
 function TuosDataCollector.StartRecording(ASampleRate: integer): Boolean;
-const
-  FLOAT_INPUT = 0;        // "float" = single, -1 ... +1
-  //INT16_INPUT = 2;
 var
   msg: string;
 begin

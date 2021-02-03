@@ -41,6 +41,7 @@ type
   private
     FData: array of Single;
     FTimebaseLock: Integer;
+    procedure DataAvailHandler(ABufPtr: Pointer; ABufSize: Integer);
 
   protected
     function GetNumChannels: Integer; inline;
@@ -56,6 +57,7 @@ type
     procedure Activate; override;
     procedure Deactivate; override;
     procedure AutoSizeControls; override;
+    procedure Prepare; override;
   end;
 
 
@@ -138,6 +140,31 @@ begin
   SpectrumDB := CbYdB.Checked;
   ParamsToControls;
 end;
+
+procedure TSpectrumFrame.DataAvailHandler(ABufPtr: Pointer; ABufSize: Integer);
+begin
+  FDataCollector.GetFFTData(@FData[0], GetNumSamples, GetNumChannels);
+
+  //if MainForm.CbAudioEngine.text = 'uos' then FData := BData;
+
+  // prepare series
+  LeftChannelChartSource.Reset;
+  RightChannelChartSource.Reset;
+
+  // Repaint chart
+  Chart.Invalidate;
+
+  // Progress info display
+  if not FCrosshairActive then begin
+    UpdateInfo;
+    if not GbInfo.Visible then GbInfo.Show;
+  end;
+
+  // Notify main form of received data
+  if Assigned(OnDataReceived) then
+    OnDataReceived(self);
+end;
+
 
 procedure TSpectrumFrame.DataPointCrosshairToolDraw(ASender: TDataPointDrawTool);
 var
@@ -229,6 +256,11 @@ begin
   for i:=0 to High(NUM_SAMPLES) do
     RgSamples.Items.Add(IntToStr(NUM_SAMPLES[i]));
   RgSamples.ItemIndex := RgSamples.Items.IndexOf('2048');
+end;
+
+procedure TSpectrumFrame.Prepare;
+begin
+  FDataCollector.OnDataAvail := @DataAvailHandler;
 end;
 
 procedure TSpectrumFrame.RgChannelsClick(Sender: TObject);

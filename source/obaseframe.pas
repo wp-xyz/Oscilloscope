@@ -305,6 +305,8 @@ begin
     exit;
   end;
 
+  Prepare;
+
   if FDataCollector.StartPlayback(AFileName) then
   begin
     
@@ -335,6 +337,8 @@ begin
   if (AMemory = nil) then
     exit;
 
+  Prepare;
+
   if FDataCollector.StartPlayback(AMemory, ALength, ALoop) then
   begin
     FSampleRate := FDataCollector.GetSampleRate;
@@ -360,9 +364,7 @@ begin
   if FDataCollector.Running then
     exit;
 
-  // ****** NEW ********
   Prepare;
-  // *******************
 
   if FDataCollector.StartRecording(ASampleRate) then begin
     FSampleRate := ASampleRate;
