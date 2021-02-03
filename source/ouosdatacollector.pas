@@ -355,7 +355,7 @@ end;
 
 function TuosDataCollector.StartRecording(ASampleRate: integer): Boolean;
 const
-  FLOAT_INPUT = 0;        // "float" = single
+  FLOAT_INPUT = 0;        // "float" = single, -1 ... +1
   //INT16_INPUT = 2;
 var
   msg: string;
