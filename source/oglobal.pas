@@ -16,7 +16,7 @@ type
 
   TWaveForm = (wfSine, wfTri, wfRect);
 
-  TChannelData = packed array[TChannelIndex] of SmallInt;
+  TChannelData = packed array[TChannelIndex] of Single;
   TChannelDataArray = array of TChannelData;
   TWaveDataArray = TChannelDataArray;
   TFFTDataArray = TChannelDataArray;
@@ -28,8 +28,8 @@ type
   end;
 
 const
-  WAVE_MAX = 32767;
-  WAVE_MIN = -32768;
+  WAVE_MAX = 1.0; //32767;
+  WAVE_MIN = -1.0; //32768;
 
   NUM_SAMPLES: array[0..6] of Integer = (256, 512, 1024, 2048, 4096, 8192, 16384);
   SAMPLE_RATES: array[0..3] of Integer = (44100, 48000, 96000, 192000);

@@ -400,7 +400,7 @@ begin
   Result := False;
 
   FSampleRate := ASampleRate;
-  FChannel := BASS_RecordStart(FSampleRate, FNumChannels, 0, RecordProc(@RecordingCallback), nil);
+  FChannel := BASS_RecordStart(FSampleRate, FNumChannels, BASS_SAMPLE_FLOAT, RecordProc(@RecordingCallback), nil);
   if FChannel = 0 then
   begin
     SetError('Could not start recording: ' + GetErrorMsg);

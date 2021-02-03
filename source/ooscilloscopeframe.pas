@@ -127,7 +127,7 @@ var
   n, i: Integer;
   i1, i2: Integer;
   t1, t2: Double;
-  y1, y2: SmallInt;
+  y1, y2: Single; //SmallInt;
 begin
   if Length(FData) = 0 then
   begin
@@ -184,7 +184,7 @@ end;
   ABufPtr points to the data received, ABufSize is the number of bytes in the buffer.
   This routine must copy these data into the frame's buffer and plot the chart,
   essentially the same that is in TimerEventHandler.
-  The OscilloscopeFrame assumes that the buffer elements at int16 values.}
+  The OscilloscopeFrame assumes that the buffer elements are single values, -1 ... +1.}
 procedure TOscilloscopeFrame.DataAvailHandler(ABufPtr: Pointer; ABufSize: Integer);
 var
   numDataPerChannel: Integer;
@@ -193,9 +193,9 @@ var
   triggerch: TChannelIndex;
   s: String;
 begin
-  // In our case the data are 16bit integers, in case of stereo alternating
+  // In our case the data are type single, in case of stereo alternating
   // between left and right channel,
-  numDataPerChannel := ABufSize div SizeOf(SmallInt) div FDataCollector.NumChannels;
+  numDataPerChannel := ABufSize div SizeOf(Single) div FDataCollector.NumChannels;
 
   // Copy data to FData
   SetLength(FData, numDataPerChannel);
@@ -210,7 +210,7 @@ begin
   // Find trigger time
   if BtnTriggerAsc.Down or BtnTriggerDesc.Down then
   begin
-    level := EdTriggerLevel.value * 0.01 * $7FFF;
+    level := EdTriggerLevel.value * 0.01; // * $7FFF;
     if BtnTriggerLeft.Down then triggerch := ciLeft else triggerch := ciRight;
   end;
   FindTriggerIndex(triggerCh, level);

@@ -20,10 +20,7 @@ type
 
   protected
     function GetErrorMsg: string;
-
-    // ********* NEW ********
-    procedure DataAvailProc; override;  // this must be used as argument in uos_LoopProcIn
-    // **********************
+    procedure DataAvailProc; override;
 
   public
     constructor Create(AHandle: HWnd); override;
@@ -95,58 +92,18 @@ begin
   uos_free;
 end;
 
-//***********NEW******************************************
+{ Receive wave data coming from uos which has been configured in StartRecording
+  to send single values, normalized to -1 ... +1. }
 procedure TuosDataCollector.DataAvailProc;
 var
-  P: Pointer;
-  N, i: Integer;
   bufferwav: TDArFloat;
-  intBuffer: array of SmallInt;
-  val: Single;
 begin
   if Assigned(OnDataAvail) then
   begin
-    //  P := @ (first byte in uosbuffer)
-    //  N := ( number of bytes in uosbuffer);
-    bufferwav := uos_InputGetbuffer(FChannel, 0);
-    SetLength(intBuffer, Length(bufferwav));
-    for i := 0 to High(intBuffer) do
-    begin
-      val := bufferwav[i] * 32768;
-      if val > 32767 then val := 32767 else if val < -32768 then val := 32768;
-      intBuffer[i] := round(val);
-    end;
-    P := @intBuffer[0];
-    N := Length(intBuffer)*SizeOf(Smallint);
-    OnDataAvail(P, N);
+    bufferwav := uos_InputGetBuffer(FChannel, 0);
+    OnDataAvail(@bufferwav[0], Length(bufferwav));
   end;
 end;
-               (*
-procedure TuosDataCollector.DataAvailProc;
-var
-bufferWav: TDArFloat;
-intBuffer: Array of Integer;
-val: single;
-P: Pointer;
-N: Integer;
-begin
-if Assigned(OnDataAvail) then
-begin
-bufferwav := uos_InputGetBuffer(FChannel, 0);
-SetLength(intBuffer, Length(bufferwav));
-for i := 0 to High(IntBuffer) do
-begin
-val := bufferwav[i]*32868;
-if val > 32767 then val := 32767 else if val < -32768 then val := val := 32768;
-intBuffer[i] := round(val);
-end;
-P := @intBuffer[0];
-N := Length(intBuffer);
-OnDataAvail(P, N);
-end;
-end;
-*)
-// *********************************************************
 
 function TuosDataCollector.GetFFTData(ABufPtr: Pointer; ANumPoints, ANumChannels: integer): integer;
 var
@@ -208,7 +165,6 @@ function TuosDataCollector.GetWaveData(ABufPtr: Pointer; ABufSize: integer): int
 var
   i, nBuf: integer;
   bufferwav: TDArFloat;
-//  bufferwav: TDArShort;
   EndPtr: Pointer;
   intValue: Integer;
 begin
@@ -398,14 +354,17 @@ begin
 end;
 
 function TuosDataCollector.StartRecording(ASampleRate: integer): Boolean;
+const
+  FLOAT_INPUT = 0;        // "float" = single
+  //INT16_INPUT = 2;
 var
   msg: string;
 begin
-  Result   := False;
+  Result := False;
   FChannel := 0;
   FSampleRate := ASampleRate;
   if uos_CreatePlayer(FChannel) then
-    if uos_AddFromDevIn(FChannel, -1, -1, ASampleRate, -1, 0, 2048, -1 )  > -1 then
+    if uos_AddFromDevIn(FChannel, -1, -1, ASampleRate, -1, FLOAT_INPUT, 2048, -1 )  > -1 then
       begin
         Result := True;
         uos_LoopProcIn(FChannel, 0, @DataAvailProc);
